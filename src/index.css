@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "nunito-sans";
+  src: url("./assets/font/nunito_sans.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "nunito-sans";
+  src: url("./assets/font/nunito_sans_italic.ttf");
+  font-style: italic;
+}
