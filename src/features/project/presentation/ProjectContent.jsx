@@ -1,10 +1,16 @@
-import AddProject from "./AddProject";
+import AddOrEditProject from "./AddOrEditProject";
+
+function handleAddProject() {}
+
+function handleEditProject() {}
+
+function handleDeleteProject() {}
 
 export default function ProjectContent({ selectedProject }) {
   const titleStyle = "font-[nunito-sans] text-3xl font-bold py-2";
 
   if (selectedProject.isEditing) {
-    return <AddProject />;
+    return <AddOrEditProject />;
   }
 
   return (

@@ -1,4 +1,9 @@
-export default function SideBar({ projectList, onCreate, className }) {
+import { useContext } from "react";
+import { ProjectContext } from "../context/ProjectContext";
+
+export default function SideBar({ className }) {
+  const { items, selected } = useContext(ProjectContext);
+
   const idleBar =
     "w-full py-1 px-2 mt-1 rounded-md font-[nunito-sans] text-left text-white transition hover:bg-green-600 active:bg-green-500";
   const activeBar = `${idleBar} bg-green-800`;
@@ -13,7 +18,8 @@ export default function SideBar({ projectList, onCreate, className }) {
         <button
           type="button"
           className="btn-primary mt-6"
-          onClick={() => onCreate()}
+          // TODO
+          // onClick={() => onCreate()}
         >
           + Add Project
         </button>
@@ -24,10 +30,14 @@ export default function SideBar({ projectList, onCreate, className }) {
         <div className={`${shadowIndicator} shadow-bottom`}></div>
         <div className="my-5"></div>
 
-        {projectList.length > 0 &&
-          projectList.map((project, index) => (
-            <button key={index} type="button" className={idleBar}>
-              {project.title}Hello
+        {items.length > 0 &&
+          items.map((project, index) => (
+            <button
+              key={index}
+              type="button"
+              className={selected == items[index] ? activeBar : idleBar}
+            >
+              {items[index].title}
             </button>
           ))}
 

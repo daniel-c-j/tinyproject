@@ -1,4 +1,9 @@
-export default function Start({ handleCreate }) {
+import { useContext } from "react";
+import { ProjectContext } from "../../../context/ProjectContext";
+
+export default function NoSelectedProject() {
+  useContext(ProjectContext);
+
   return (
     <div
       align="center"

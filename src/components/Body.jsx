@@ -1,28 +1,19 @@
-import AddOrEditProject from "./AddProject";
-import Start from "./Start";
-import ProjectContent from "./Project";
+import { useContext } from "react";
+import NoSelectedProject from "../features/project/presentation/NoSelectedProject";
+import ProjectContent from "../features/project/presentation/ProjectContent";
+import { ProjectContext } from "../context/ProjectContext";
 
-// TODO useContext here and reducer
-export default function Body({
-  selectedProject,
-  onEdit,
-  onCancelEdit,
-  className,
-}) {
-  let innerStyle = "w-[85%] h-full";
-  let body = <Start handleCreate={onEdit} />;
+// TODO modal
 
-  if (selectedProject === null) {
-    innerStyle = "";
-  } else if (selectedProject.isEditing) {
-    body = <AddOrEditProject onCancelEdit={onCancelEdit} />;
-  } else {
-    body = <ProjectContent selectedProject={selectedProject} />;
-  }
+export default function Body({ className }) {
+  const { selected } = useContext(ProjectContext);
+
+  const innerConstraint = selected ? "w-[85%]" : "";
+  const body = selected ? <ProjectContent /> : <NoSelectedProject />;
 
   return (
     <div className={className}>
-      <div className={innerStyle}>{body}</div>
+      <div className={innerConstraint}>{body}</div>
     </div>
   );
 }

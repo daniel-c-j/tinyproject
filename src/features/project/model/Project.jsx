@@ -1,10 +1,9 @@
 export default class Project {
-    constructor({ title = "", desc = "", dateAdded = Project.getCurrentFormattedDate(), dueDate = null, isEditing = false, task = null }) {
+    constructor({ title = "", desc = "", dateAdded = Project.getCurrentFormattedDate(), dueDate = null, task = null }) {
         this.title = title;
         this.desc = desc;
         this.dateAdded = dateAdded;
         this.dueDate = dueDate;
-        this.isEditing = isEditing;
         this.task = task;
     }
 
