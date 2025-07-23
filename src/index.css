@@ -1,5 +1,36 @@
 @import "tailwindcss";
 
+.body {
+  @apply flex-[75%] min-h-screen p-12 pt-22;
+}
+
+.sidebar {
+  @apply flex-[20%] min-h-full max-h-full mt-12 px-8 rounded-tr-2xl bg-green-950;
+}
+
+.btn-primary {
+  @apply font-[nunito-sans] px-4 py-2 rounded-md transition 
+text-white bg-green-800 hover:bg-green-600 active:bg-green-500;
+}
+
+.btn-secondary {
+  @apply font-[nunito-sans] px-4 py-2 rounded-md transition 
+text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
+}
+
+.btn-secondary-alert {
+  @apply font-[nunito-sans] px-4 py-2 rounded-md transition 
+ text-red-600 bg-none hover:text-white hover:bg-red-600 active:bg-red-500;
+}
+
+.input-field {
+  @apply font-[nunito-sans] p-2 my-1 rounded-md bg-gray-300 border-b-1 border-green-500 focus:border-1 focus:outline-none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
 @font-face {
   font-family: "nunito-sans";
   src: url("./assets/font/nunito_sans.ttf");
@@ -9,4 +40,53 @@
   font-family: "nunito-sans";
   src: url("./assets/font/nunito_sans_italic.ttf");
   font-style: italic;
+}
+
+.slide-up {
+  animation: slide-up 1s ease forwards;
+}
+
+.slide-down {
+  animation: slide-down 1s ease forwards;
+}
+
+.slide-right {
+  animation: slide-right 1s ease forwards;
+}
+
+.slide-right-slower {
+  animation: slide-right 1.5s ease forwards;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

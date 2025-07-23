@@ -1,26 +1,28 @@
 import AddOrEditProject from "./AddProject";
 import Start from "./Start";
-import Project from "./Project";
-import ProjectBody from "./Project";
+import ProjectContent from "./Project";
 
+// TODO useContext here and reducer
 export default function Body({
   selectedProject,
   onEdit,
   onCancelEdit,
   className,
 }) {
-  let body;
+  let innerStyle = "w-[85%] h-full";
+  let body = <Start handleCreate={onEdit} />;
+
   if (selectedProject === null) {
-    body = <Start handleCreate={onEdit} />;
+    innerStyle = "";
   } else if (selectedProject.isEditing) {
     body = <AddOrEditProject onCancelEdit={onCancelEdit} />;
   } else {
-    <ProjectBody selectedProject={selectedProject} />;
+    body = <ProjectContent selectedProject={selectedProject} />;
   }
 
   return (
     <div className={className}>
-      <div className="size-full">{body}</div>
+      <div className={innerStyle}>{body}</div>
     </div>
   );
 }
