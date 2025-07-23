@@ -8,8 +8,8 @@ import { ProjectContext } from "../context/ProjectContext";
 export default function Body({ className }) {
   const { selected } = useContext(ProjectContext);
 
-  const innerConstraint = selected ? "w-[85%]" : "";
-  const body = selected ? <ProjectContent /> : <NoSelectedProject />;
+  const innerConstraint = selected.item ? "w-[85%]" : "";
+  const body = selected.item ? <ProjectContent /> : <NoSelectedProject />;
 
   return (
     <div className={className}>

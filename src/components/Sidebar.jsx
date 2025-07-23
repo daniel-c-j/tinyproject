@@ -1,8 +1,10 @@
 import { useContext } from "react";
 import { ProjectContext } from "../context/ProjectContext";
+import { Project } from "../features/project/model/Project";
 
 export default function SideBar({ className }) {
-  const { items, selected } = useContext(ProjectContext);
+  const { items, selected, handleUpdateOrCreate, handleSelect } =
+    useContext(ProjectContext);
 
   const idleBar =
     "w-full py-1 px-2 mt-1 rounded-md font-[nunito-sans] text-left text-white transition hover:bg-green-600 active:bg-green-500";
@@ -18,8 +20,7 @@ export default function SideBar({ className }) {
         <button
           type="button"
           className="btn-primary mt-6"
-          // TODO
-          // onClick={() => onCreate()}
+          onClick={() => handleUpdateOrCreate(new Project())}
         >
           + Add Project
         </button>
@@ -35,9 +36,10 @@ export default function SideBar({ className }) {
             <button
               key={index}
               type="button"
-              className={selected == items[index] ? activeBar : idleBar}
+              className={selected.item === project ? activeBar : idleBar}
+              onClick={() => handleSelect(project)}
             >
-              {items[index].title}
+              {project.title}
             </button>
           ))}
 
