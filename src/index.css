@@ -5,7 +5,7 @@
 }
 
 .sidebar {
-  @apply flex-[20%] min-h-full max-h-full mt-12 px-8 rounded-tr-2xl bg-green-950;
+  @apply flex-[20%] max-h-[92.5vh] mt-[7.5vh] px-8 rounded-tr-2xl bg-green-950;
 }
 
 .btn-primary {
@@ -27,8 +27,29 @@ text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
   @apply font-[nunito-sans] p-2 my-1 rounded-md bg-gray-300 border-b-1 border-green-500 focus:border-1 focus:outline-none;
 }
 
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(175, 175, 175, 0.75) transparent;
+  scrollbar-arrow-color: transparent;
+}
+
 .no-scrollbar {
   scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+
+.shadow-top {
+  box-shadow: 0 -5px 8px color-mix(in oklab, var(--color-green-950)
+        /* oklch(26.6% 0.065 152.934) = #032e15 */ 80%, transparent);
+}
+
+.shadow-bottom {
+  box-shadow: 0 5px 8px
+    color-mix(
+      in oklab,
+      var(--color-green-950) /* oklch(26.6% 0.065 152.934) = #032e15 */ 80%,
+      transparent
+    );
 }
 
 @font-face {
