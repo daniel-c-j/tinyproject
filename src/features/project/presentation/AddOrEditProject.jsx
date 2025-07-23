@@ -1,12 +1,11 @@
 import { useContext, useRef } from "react";
 import { ProjectContext } from "../../../context/ProjectContext";
-import { Project } from "../model/Project";
 
 export default function AddOrEditProject() {
   const labelStyle = "font-[nunito-sans] block uppercase font-semibold mt-4";
   const { selected, handleSaveEdit, handleCancelEdit } =
     useContext(ProjectContext);
-  const formRef = useRef(new Project());
+  const formRef = useRef(selected.item);
 
   const handleTitleChange = (e) => {
     formRef.current.title = e.target.value;
@@ -47,7 +46,7 @@ export default function AddOrEditProject() {
         name="title"
         className="input-field w-full"
         onChange={handleTitleChange}
-        defaultValue={selected?.title || ""}
+        defaultValue={selected?.item.title}
         required
       />
 
@@ -57,7 +56,7 @@ export default function AddOrEditProject() {
         className="input-field w-full resize-y"
         rows="3"
         onChange={handleDescChange}
-        defaultValue={selected?.desc || ""}
+        defaultValue={selected?.item.desc}
       />
 
       <label className={labelStyle}>Due Date</label>
@@ -66,7 +65,7 @@ export default function AddOrEditProject() {
         name="date"
         className="input-field w-full"
         onChange={handleDueDateChange}
-        defaultValue={selected?.dueDate || ""}
+        defaultValue={selected?.item.dueDate}
       />
     </form>
   );

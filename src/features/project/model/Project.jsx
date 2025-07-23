@@ -1,11 +1,14 @@
+import { v4 as uuidv4 } from "uuid";
+
 export class Project {
   constructor(
     title = "",
-    desc = "",
+    desc = null,
     dateAdded = Project.getCurrentFormattedDate(),
     dueDate = null,
     task = []
   ) {
+    this.id = uuidv4();
     this.title = title;
     this.desc = desc;
     this.dateAdded = dateAdded;

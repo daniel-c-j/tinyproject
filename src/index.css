@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .body {
-  @apply flex-[75%] min-h-screen p-12 pt-22;
+  @apply flex-[75%] min-h-screen max-h-screen overflow-y-auto p-12 pt-22;
 }
 
 .sidebar {

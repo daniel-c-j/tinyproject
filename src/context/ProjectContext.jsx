@@ -44,21 +44,27 @@ function projectReducer(state, action) {
   if (action.type === type.DELETE) {
     return {
       ...state,
-      items: state.items.filter((project) => project !== action.payload),
+      items: state.items.filter((project) => project.id !== action.payload.id),
       selected: defaultSelectedState,
     };
   }
 
   if (action.type === type.SAVE_EDIT) {
+    const isListed = state.items.some(
+      (project) => project.id === state.selected.item?.id
+    );
+
     return {
       ...state,
-      items: [...state.items, action.payload],
+      items: [...state.items, ...(!isListed ? [action.payload] : [])],
       selected: { item: action.payload, isEditing: false },
     };
   }
 
   if (action.type === type.CANCEL_EDIT) {
-    const isListed = state.items.includes(state.selected.item);
+    const isListed = state.items.some(
+      (project) => project.id === state.selected.item.id
+    );
     return {
       ...state,
       selected: {
