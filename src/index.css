@@ -5,7 +5,7 @@
 }
 
 .sidebar {
-  @apply flex-[20%] max-h-[92.5vh] mt-[7.5vh] overflow-clip px-8 rounded-tr-2xl bg-green-950;
+  @apply flex-[20%] max-h-[92.5vh] mt-[7.5vh] px-8 rounded-tr-2xl bg-green-950;
 }
 
 .btn-primary {

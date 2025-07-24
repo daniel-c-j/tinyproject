@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ProjectContext } from "../context/ProjectContext";
+import { ProjectContext } from "../features/project/context/ProjectContext";
 import { Project } from "../features/project/model/Project";
 
 export default function SideBar({ className }) {

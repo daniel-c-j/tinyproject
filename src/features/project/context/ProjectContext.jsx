@@ -113,6 +113,8 @@ export default function ProjectContextProvider({ children }) {
     handleCancelEdit,
   };
 
+  console.log(ctxValue.selected.item);
+
   return (
     <ProjectContext.Provider value={ctxValue}>
       {children}

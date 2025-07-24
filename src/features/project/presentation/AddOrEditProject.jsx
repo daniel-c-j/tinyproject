@@ -1,5 +1,5 @@
 import { useContext, useRef } from "react";
-import { ProjectContext } from "../../../context/ProjectContext";
+import { ProjectContext } from "../context/ProjectContext";
 
 export default function AddOrEditProject() {
   const labelStyle = "font-[nunito-sans] block uppercase font-semibold mt-4";

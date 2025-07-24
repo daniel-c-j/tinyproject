@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useRef, useState } from "react";
 import AddOrEditProject from "./AddOrEditProject";
 import { v4 as uuidv4 } from "uuid";
-import { ProjectContext } from "../../../context/ProjectContext";
+import { ProjectContext } from "../context/ProjectContext";
 import Modal from "../../../components/Modal";
 import ProjectDeletionConfirmation from "./ProjectDeletionConfirmation";
 
@@ -67,9 +68,8 @@ export function ProjectContentMain({ project }) {
 }
 
 export function ProjectContentTask({ project, updateUI }) {
-  const input = useRef();
-
   // To delete unprocessed text whenever changing the project.
+  const input = useRef();
   useEffect(() => {
     input.current.value = "";
   }, [project]);
@@ -86,6 +86,16 @@ export function ProjectContentTask({ project, updateUI }) {
     );
     updateUI(project.item);
   }
+
+  //
+  // ===============================================================================
+  // Debounce operation
+  const handleChange = (event, value) => {
+    value = event.target.value;
+  };
+  //
+  // ===============================================================================
+  //
 
   return (
     <>
@@ -112,7 +122,8 @@ export function ProjectContentTask({ project, updateUI }) {
                 type="text"
                 name="task"
                 defaultValue={projectTask.value}
-                onChange={(e) => (projectTask.value = e.target.value)}
+                // This will trigger the debouncer to update the UI
+                onChange={(e) => handleChange(e, projectTask.value)}
                 className={`${inputStyle} opacity-80`}
               />
               <button
