@@ -4,7 +4,7 @@ import ProjectContextProvider from "./context/ProjectContext";
 
 function App() {
   return (
-    <div className="flex flex-row max-w-screen max-h-screen">
+    <div className="flex flex-row max-w-screen max-h-screen overflow-clip">
       <ProjectContextProvider>
         {/* Side Bar */}
         <SideBar className="sidebar slide-right-slower" />

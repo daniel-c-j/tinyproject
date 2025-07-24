@@ -1,8 +1,9 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AddOrEditProject from "./AddOrEditProject";
 import { v4 as uuidv4 } from "uuid";
 import { ProjectContext } from "../../../context/ProjectContext";
 import Modal from "../../../components/Modal";
+import ProjectDeletionConfirmation from "./ProjectDeletionConfirmation";
 
 const titleStyle = "font-[nunito-sans] text-3xl font-bold py-2";
 const inputStyle = "input-field w-[35vw]";
@@ -17,8 +18,12 @@ export default function ProjectContent() {
   return (
     <>
       <Modal open={showModal}>
-        <p>Hello</p>
+        <ProjectDeletionConfirmation
+          onDelete={() => handleDelete(selected.item)}
+          showModal={setShowModal}
+        />
       </Modal>
+
       <div align="right">
         <button
           type="button"
@@ -63,6 +68,11 @@ export function ProjectContentMain({ project }) {
 
 export function ProjectContentTask({ project, updateUI }) {
   const input = useRef();
+
+  // To delete unprocessed text whenever changing the project.
+  useEffect(() => {
+    input.current.value = "";
+  }, [project]);
 
   function handleAddTask(newTask) {
     input.current.value = "";

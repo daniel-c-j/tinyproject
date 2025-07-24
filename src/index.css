@@ -5,7 +5,7 @@
 }
 
 .sidebar {
-  @apply flex-[20%] max-h-[92.5vh] mt-[7.5vh] px-8 rounded-tr-2xl bg-green-950;
+  @apply flex-[20%] max-h-[92.5vh] mt-[7.5vh] overflow-clip px-8 rounded-tr-2xl bg-green-950;
 }
 
 .btn-primary {
@@ -67,8 +67,20 @@ text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
   animation: slide-up 1s ease forwards;
 }
 
+.slide-up-faster {
+  animation: slide-up 0.5s ease forwards;
+}
+
+.slide-up-realfast {
+  animation: slide-up 0.25s ease forwards;
+}
+
 .slide-down {
   animation: slide-down 1s ease forwards;
+}
+
+.slide-down-realfast {
+  animation: slide-down 0.25s ease forwards;
 }
 
 .slide-right {

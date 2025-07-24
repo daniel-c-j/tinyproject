@@ -1,10 +1,6 @@
-import { useContext } from "react";
-import { ProjectContext } from "../../../context/ProjectContext";
 import { Project } from "../model/Project";
 
-export default function NoSelectedProject() {
-  const { handleUpdateOrCreate } = useContext(ProjectContext);
-
+export default function NoSelectedProject({ onCreateProject }) {
   return (
     <div
       align="center"
@@ -20,7 +16,7 @@ export default function NoSelectedProject() {
       </p>
       <button
         type="button"
-        onClick={() => handleUpdateOrCreate(new Project())}
+        onClick={() => onCreateProject(new Project())}
         className="btn-primary my-8"
       >
         Create new project
