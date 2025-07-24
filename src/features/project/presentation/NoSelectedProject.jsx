@@ -7,7 +7,14 @@ export default function NoSelectedProject({ onCreateProject }) {
       align="center"
       className="flex flex-col h-[75vh] items-center justify-center"
     >
-      <img src={logo} alt="No project logo" width="120" height="120" />
+      <img
+        src={logo}
+        alt="No project logo"
+        className="opacity-75"
+        width="100"
+        height="100"
+        draggable="false"
+      />
 
       <h2 className="font-[nunito-sans] text-2xl p-2 font-bold">
         No Project Selected

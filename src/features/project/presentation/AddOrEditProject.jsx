@@ -1,22 +1,27 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { ProjectContext } from "../context/ProjectContext";
 
 export default function AddOrEditProject() {
   const labelStyle = "font-[nunito-sans] block uppercase font-semibold mt-4";
   const { selected, handleSaveEdit, handleCancelEdit } =
     useContext(ProjectContext);
-  const formRef = useRef(selected.item);
+  const form = useRef(selected.item);
+  const title = useRef();
+
+  useEffect(() => {
+    title.current.focus();
+  });
 
   const handleTitleChange = (e) => {
-    formRef.current.title = e.target.value;
+    form.current.title = e.target.value;
   };
 
   const handleDescChange = (e) => {
-    formRef.current.desc = e.target.value;
+    form.current.desc = e.target.value;
   };
 
   const handleDueDateChange = (e) => {
-    formRef.current.dueDate = e.target.value;
+    form.current.dueDate = e.target.value;
   };
 
   return (
@@ -32,7 +37,7 @@ export default function AddOrEditProject() {
         <button
           type="submit"
           onClick={() =>
-            formRef.current.title !== "" && handleSaveEdit(formRef.current)
+            form.current.title !== "" && handleSaveEdit(form.current)
           }
           className="btn-primary mx-1"
         >
@@ -42,6 +47,7 @@ export default function AddOrEditProject() {
 
       <label className={labelStyle}>title</label>
       <input
+        ref={title}
         type="text"
         name="title"
         className="input-field w-full"

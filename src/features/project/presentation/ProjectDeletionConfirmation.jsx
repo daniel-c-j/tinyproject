@@ -8,7 +8,7 @@ export default function ProjectDeletionConfirmation({ showModal, onDelete }) {
       <div align="right">
         <button
           type="button"
-          className="btn-secondary-alert mx-1"
+          className="btn-primary-alert mx-1"
           onClick={() => {
             onDelete();
             showModal(false);
@@ -18,7 +18,7 @@ export default function ProjectDeletionConfirmation({ showModal, onDelete }) {
         </button>
         <button
           type="button"
-          className="btn-primary mx-1"
+          className="btn-secondary mx-1"
           onClick={() => showModal(false)}
         >
           Cancel

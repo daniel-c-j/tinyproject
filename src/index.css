@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.base {
+  @apply flex flex-row max-w-screen max-h-screen overflow-y-clip;
+}
+
 .body {
   @apply flex-[75%] min-h-screen max-h-screen overflow-y-auto p-12 pt-22;
 }
@@ -11,6 +15,11 @@
 .btn-primary {
   @apply font-[nunito-sans] px-4 py-2 rounded-md transition 
 text-white bg-green-800 hover:bg-green-600 active:bg-green-500;
+}
+
+.btn-primary-alert {
+  @apply font-[nunito-sans] px-4 py-2 rounded-md transition 
+  text-white bg-red-600 hover:bg-red-700 active:bg-red-500;
 }
 
 .btn-secondary {

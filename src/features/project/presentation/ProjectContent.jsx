@@ -6,6 +6,7 @@ import { ProjectContext } from "../context/ProjectContext";
 import Modal from "../../../components/Modal";
 import ProjectDeletionConfirmation from "./ProjectDeletionConfirmation";
 import ProjectStorage from "../data/ProjectStorage";
+import { useDebounce } from "../../../util/debounce";
 
 const titleStyle = "font-[nunito-sans] text-3xl font-bold py-2";
 const inputStyle = "input-field w-[35vw]";
@@ -97,11 +98,6 @@ export function ProjectContentTask({ items, project, updateUI }) {
     updateUI(project.item);
   }
 
-  const handleChange = (event, value) => {
-    value = event.target.value;
-    ProjectStorage.store(items);
-  };
-
   return (
     <>
       <h1 className={titleStyle}>Tasks</h1>
@@ -128,7 +124,10 @@ export function ProjectContentTask({ items, project, updateUI }) {
                 name="task"
                 defaultValue={projectTask.value}
                 // This will trigger the debouncer to update the UI
-                onChange={(e) => handleChange(e, projectTask.value)}
+                onChange={(e) => {
+                  projectTask.value = e.target.value;
+                  ProjectStorage.store(items);
+                }}
                 className={`${inputStyle} opacity-80`}
               />
               <button

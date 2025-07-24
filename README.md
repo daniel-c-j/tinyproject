@@ -1,5 +1,5 @@
 # TinyProject
 
-A simple client-oriented web app to manage projects.
+Simple client-oriented project listing web app. 
 
 Built with React and Tailwind.
