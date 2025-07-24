@@ -1,4 +1,6 @@
 import { createContext, useReducer } from "react";
+import ProjectStorage from "../data/ProjectStorage";
+import { useDebounce } from "../../../util/debounce";
 
 const defaultSelectedState = {
   item: null,
@@ -6,7 +8,7 @@ const defaultSelectedState = {
 };
 
 const projectInitialValue = {
-  items: [],
+  items: ProjectStorage.retrieve(),
   selected: defaultSelectedState,
   handleSelect: () => {},
   handleUpdateOrCreate: () => {},
@@ -65,6 +67,7 @@ function projectReducer(state, action) {
     const isListed = state.items.some(
       (project) => project.id === state.selected.item.id
     );
+
     return {
       ...state,
       selected: {
@@ -82,6 +85,8 @@ export default function ProjectContextProvider({ children }) {
     projectReducer,
     projectInitialValue
   );
+  // Persists data.
+  useDebounce(() => ProjectStorage.store(projectState.items), 500);
 
   const handleSelect = (project) => {
     projectDispatch({ type: type.SELECT, payload: project });
@@ -112,8 +117,6 @@ export default function ProjectContextProvider({ children }) {
     handleSaveEdit,
     handleCancelEdit,
   };
-
-  console.log(ctxValue.selected.item);
 
   return (
     <ProjectContext.Provider value={ctxValue}>

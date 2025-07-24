@@ -5,13 +5,19 @@ import { v4 as uuidv4 } from "uuid";
 import { ProjectContext } from "../context/ProjectContext";
 import Modal from "../../../components/Modal";
 import ProjectDeletionConfirmation from "./ProjectDeletionConfirmation";
+import ProjectStorage from "../data/ProjectStorage";
 
 const titleStyle = "font-[nunito-sans] text-3xl font-bold py-2";
 const inputStyle = "input-field w-[35vw]";
 
 export default function ProjectContent() {
-  const { selected, handleSaveEdit, handleDelete, handleUpdateOrCreate } =
-    useContext(ProjectContext);
+  const {
+    items,
+    selected,
+    handleSaveEdit,
+    handleDelete,
+    handleUpdateOrCreate,
+  } = useContext(ProjectContext);
   const [showModal, setShowModal] = useState(false);
 
   if (selected.isEditing) return <AddOrEditProject />;
@@ -46,7 +52,11 @@ export default function ProjectContent() {
 
       <hr className="opacity-20 border-1 my-4 border-green-800" />
 
-      <ProjectContentTask project={selected} updateUI={handleSaveEdit} />
+      <ProjectContentTask
+        items={items}
+        project={selected}
+        updateUI={handleSaveEdit}
+      />
     </>
   );
 }
@@ -67,7 +77,7 @@ export function ProjectContentMain({ project }) {
   );
 }
 
-export function ProjectContentTask({ project, updateUI }) {
+export function ProjectContentTask({ items, project, updateUI }) {
   // To delete unprocessed text whenever changing the project.
   const input = useRef();
   useEffect(() => {
@@ -87,15 +97,10 @@ export function ProjectContentTask({ project, updateUI }) {
     updateUI(project.item);
   }
 
-  //
-  // ===============================================================================
-  // Debounce operation
   const handleChange = (event, value) => {
     value = event.target.value;
+    ProjectStorage.store(items);
   };
-  //
-  // ===============================================================================
-  //
 
   return (
     <>
