@@ -1,7 +1,7 @@
 {
-  "name": "00-own",
+  "name": "TinyProject",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
-    "@types/lodash": "4.14.191",
-    "lodash": "^4.17.21",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.11",

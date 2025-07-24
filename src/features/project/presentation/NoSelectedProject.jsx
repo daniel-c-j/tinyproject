@@ -1,4 +1,5 @@
 import { Project } from "../model/Project";
+import logo from "../../../assets/images/no-projects.png";
 
 export default function NoSelectedProject({ onCreateProject }) {
   return (
@@ -6,7 +7,7 @@ export default function NoSelectedProject({ onCreateProject }) {
       align="center"
       className="flex flex-col h-[75vh] items-center justify-center"
     >
-      {/* TODO <img src="" alt="" />  */}
+      <img src={logo} alt="No project logo" width="120" height="120" />
 
       <h2 className="font-[nunito-sans] text-2xl p-2 font-bold">
         No Project Selected
