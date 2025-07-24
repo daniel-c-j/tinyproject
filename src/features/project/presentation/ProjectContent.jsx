@@ -23,7 +23,7 @@ export default function ProjectContent() {
   if (selected.isEditing) return <AddOrEditProject />;
 
   return (
-    <>
+    <div className="slide-down-to-up-fast">
       <Modal open={showModal}>
         <ProjectDeletionConfirmation
           onDelete={() => handleDelete(selected.item)}
@@ -57,13 +57,13 @@ export default function ProjectContent() {
         project={selected}
         updateUI={handleSaveEdit}
       />
-    </>
+    </div>
   );
 }
 
 export function ProjectContentMain({ project }) {
   return (
-    <>
+    <div className="overflow-x-auto custom-scrollbar">
       <h1 className={titleStyle}>{project.item.title}</h1>
       <p className="font-[nunito-sans] text-gray-500">{project.item.dueDate}</p>
       <p
@@ -73,7 +73,7 @@ export function ProjectContentMain({ project }) {
       >
         {project.item.desc || "No description"}
       </p>
-    </>
+    </div>
   );
 }
 

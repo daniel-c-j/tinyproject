@@ -24,9 +24,9 @@ function AppContentWrapper() {
 
   return (
     <div className={`base ${theme === themeData.dark && "dark-mode"}`}>
-      <SideBar className="sidebar slide-right-slower" />
+      <SideBar className="sidebar slide-right-slow" />
       <Body className="body slide-up" />
-      <QuickMenu>
+      <QuickMenu className="quick-menu slide-left-fast">
         <ThemeButton />
       </QuickMenu>
     </div>

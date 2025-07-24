@@ -14,7 +14,12 @@
 }
 
 .sidebar {
-  @apply flex-[20%] max-h-[92.5vh] mt-[7.5vh] px-8 rounded-tr-2xl bg-green-900;
+  @apply flex-[20%] px-8 rounded-tr-2xl bg-green-900
+  sm:bg-green-200 sm:mt-[7.5vh] sm:max-h-[92.5vh];
+}
+
+.quick-menu {
+  @apply fixed bottom-0 right-0 p-2 pb-1 bg-green-900 rounded-tl-md;
 }
 
 .btn-primary {
@@ -81,7 +86,7 @@ text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
   animation: slide-up 1s ease forwards;
 }
 
-.slide-up-faster {
+.slide-up-fast {
   animation: slide-up 0.5s ease forwards;
 }
 
@@ -89,8 +94,16 @@ text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
   animation: slide-up 0.25s ease forwards;
 }
 
+.slide-down-to-up-fast {
+  animation: slide-down-to-up 0.5s ease forwards;
+}
+
 .slide-down {
   animation: slide-down 1s ease forwards;
+}
+
+.slide-down-fast {
+  animation: slide-down 0.5s ease forwards;
 }
 
 .slide-down-realfast {
@@ -101,8 +114,16 @@ text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
   animation: slide-right 1s ease forwards;
 }
 
-.slide-right-slower {
+.slide-right-slow {
   animation: slide-right 1.5s ease forwards;
+}
+
+.slide-left {
+  animation: slide-left 1s ease forwards;
+}
+
+.slide-left-fast {
+  animation: slide-left 0.5s ease forwards;
 }
 
 @keyframes slide-up {
@@ -127,9 +148,31 @@ text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
   }
 }
 
+@keyframes slide-down-to-up {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 @keyframes slide-right {
   0% {
     transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(20px);
     opacity: 0;
   }
   100% {

@@ -32,7 +32,7 @@ export default function AddOrEditProject() {
   };
 
   return (
-    <form>
+    <form className="slide-up-fast">
       <div align="right">
         <button
           type="button"

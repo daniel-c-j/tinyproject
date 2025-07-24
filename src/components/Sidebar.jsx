@@ -39,7 +39,9 @@ export default function SideBar({ className }) {
               className={selected.item === project ? activeBar : idleBar}
               onClick={() => handleSelect(project)}
             >
-              {project.title}
+              {project.title.length > 20
+                ? project.title.slice(0, 20) + "..."
+                : project.title}
             </button>
           ))}
 
