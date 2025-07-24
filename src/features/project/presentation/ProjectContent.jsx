@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useRef, useState } from "react";
 import AddOrEditProject from "./AddOrEditProject";
 import { v4 as uuidv4 } from "uuid";
@@ -6,10 +5,10 @@ import { ProjectContext } from "../context/ProjectContext";
 import Modal from "../../../components/Modal";
 import ProjectDeletionConfirmation from "./ProjectDeletionConfirmation";
 import ProjectStorage from "../data/ProjectStorage";
-import { useDebounce } from "../../../util/debounce";
+import { ThemeContext } from "../../theme/context/ThemeContext";
+import themeData from "../../theme/context/ThemeData";
 
 const titleStyle = "font-[nunito-sans] text-3xl font-bold py-2";
-const inputStyle = "input-field w-[35vw]";
 
 export default function ProjectContent() {
   const {
@@ -79,6 +78,11 @@ export function ProjectContentMain({ project }) {
 }
 
 export function ProjectContentTask({ items, project, updateUI }) {
+  const { theme } = useContext(ThemeContext);
+
+  let inputStyle = "input-field w-[35vw]";
+  if (theme === themeData.dark) inputStyle += " !bg-gray-600";
+
   // To delete unprocessed text whenever changing the project.
   const input = useRef();
   useEffect(() => {
@@ -105,7 +109,9 @@ export function ProjectContentTask({ items, project, updateUI }) {
         <input type="text" ref={input} name="task" className={inputStyle} />
         <button
           type="button"
-          className="btn-secondary mx-2"
+          className={`btn-secondary mx-2 ${
+            theme === themeData.dark && "hover:!bg-white/10"
+          }`}
           onClick={() =>
             handleAddTask({ id: uuidv4(), value: input.current.value })
           }

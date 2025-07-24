@@ -1,10 +1,17 @@
 import { useContext, useEffect, useRef } from "react";
 import { ProjectContext } from "../context/ProjectContext";
+import { ThemeContext } from "../../theme/context/ThemeContext";
+import themeData from "../../theme/context/ThemeData";
 
 export default function AddOrEditProject() {
-  const labelStyle = "font-[nunito-sans] block uppercase font-semibold mt-4";
+  const { theme } = useContext(ThemeContext);
   const { selected, handleSaveEdit, handleCancelEdit } =
     useContext(ProjectContext);
+
+  const labelStyle = "font-[nunito-sans] block uppercase font-semibold mt-4";
+  let inputStyle = "input-field w-full";
+  if (theme === themeData.dark) inputStyle += " !bg-gray-600";
+
   const form = useRef(selected.item);
   const title = useRef();
 
@@ -30,7 +37,9 @@ export default function AddOrEditProject() {
         <button
           type="button"
           onClick={() => handleCancelEdit()}
-          className="btn-secondary mx-1"
+          className={`btn-secondary mx-1 ${
+            theme === themeData.dark && "hover:!bg-white/10"
+          }`}
         >
           Cancel
         </button>
@@ -50,7 +59,7 @@ export default function AddOrEditProject() {
         ref={title}
         type="text"
         name="title"
-        className="input-field w-full"
+        className={inputStyle}
         onChange={handleTitleChange}
         defaultValue={selected?.item.title}
         required
@@ -59,7 +68,7 @@ export default function AddOrEditProject() {
       <label className={labelStyle}>Description</label>
       <textarea
         name="desc"
-        className="input-field w-full resize-y"
+        className={inputStyle + " resize-y"}
         rows="3"
         onChange={handleDescChange}
         defaultValue={selected?.item.desc}
@@ -69,7 +78,7 @@ export default function AddOrEditProject() {
       <input
         type="date"
         name="date"
-        className="input-field w-full"
+        className={inputStyle}
         onChange={handleDueDateChange}
         defaultValue={selected?.item.dueDate}
       />

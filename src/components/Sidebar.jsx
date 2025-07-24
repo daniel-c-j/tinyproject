@@ -9,7 +9,7 @@ export default function SideBar({ className }) {
   const idleBar =
     "w-full py-1 px-2 mt-1 rounded-md font-[nunito-sans] text-left text-white transition hover:bg-green-600 active:bg-green-500";
   const activeBar = `${idleBar} bg-green-800`;
-  const shadowIndicator = "w-[18vw] h-4 bg-green-950/80 absolute";
+  const shadowIndicator = "w-[18vw] h-4 bg-green-900/80 absolute";
 
   return (
     <div className={className}>
