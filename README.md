@@ -10,16 +10,10 @@
 
 <!-- Badges -->
 <div align="center">
-    <a href="https://react.dev">
-        <img src="https://img.shields.io/badge/reactjs-404040?logo=react"
-        alt="react" />
-    </a>
-
-    <a href="https://tailwindcss.com">
-        <img src="https://img.shields.io/badge/tailwindcss-02569B?logo=tailwindcss"
-        alt="tailwind" />
-    </a>
-
+    <img src="https://img.shields.io/badge/reactjs-404040?logo=react"
+    alt="react" />
+    <img src="https://img.shields.io/badge/tailwindcss-02569B?logo=tailwindcss"
+    alt="tailwind" />
     <img src="https://img.shields.io/github/license/daniel-c-j/tinyproject" alt="license">
 
 </div>
