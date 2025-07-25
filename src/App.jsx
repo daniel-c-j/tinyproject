@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Body from "./components/Body";
-import SideBar from "./components/SideBar";
+import SideBar from "./components/Sidebar";
 import ProjectContextProvider from "./features/project/context/ProjectContext";
 import ThemeContextProvider, {
   ThemeContext,

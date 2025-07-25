@@ -25,7 +25,7 @@ export default function SideBar({ className }) {
 
         <button
           type="button"
-          className="btn-primary w-full py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
+          className="btn-primary w-full sm:w-auto py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
           onClick={() => handleUpdateOrCreate(new Project())}
         >
           <span className="inline sm:hidden">+</span>
