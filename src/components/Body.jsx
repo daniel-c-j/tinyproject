@@ -6,16 +6,12 @@ import { ProjectContext } from "../features/project/context/ProjectContext";
 export default function Body({ className }) {
   const { selected, handleUpdateOrCreate } = useContext(ProjectContext);
 
-  const innerConstraint = selected.item ? "w-[85%]" : "";
-  const body = selected.item ? (
-    <ProjectContent />
-  ) : (
-    <NoSelectedProject onCreateProject={handleUpdateOrCreate} />
-  );
+  let content = <NoSelectedProject onCreateProject={handleUpdateOrCreate} />;
+  if (selected.item) content = <ProjectContent />;
 
   return (
     <div className={className}>
-      <div className={innerConstraint}>{body}</div>
+      <div className={selected.item && "inner-body"}>{content}</div>
     </div>
   );
 }

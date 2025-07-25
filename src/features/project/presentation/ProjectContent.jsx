@@ -8,7 +8,7 @@ import ProjectStorage from "../data/ProjectStorage";
 import { ThemeContext } from "../../theme/context/ThemeContext";
 import themeData from "../../theme/context/ThemeData";
 
-const titleStyle = "font-[nunito-sans] text-3xl font-bold py-2";
+const titleStyle = "text-3xl font-bold py-2";
 
 export default function ProjectContent() {
   const {
@@ -23,7 +23,7 @@ export default function ProjectContent() {
   if (selected.isEditing) return <AddOrEditProject />;
 
   return (
-    <div className="slide-down-to-up-fast">
+    <div className="in-slide-down-fast">
       <Modal open={showModal}>
         <ProjectDeletionConfirmation
           onDelete={() => handleDelete(selected.item)}
@@ -65,12 +65,8 @@ export function ProjectContentMain({ project }) {
   return (
     <div className="overflow-x-auto custom-scrollbar">
       <h1 className={titleStyle}>{project.item.title}</h1>
-      <p className="font-[nunito-sans] text-gray-500">{project.item.dueDate}</p>
-      <p
-        className={`font-[nunito-sans] py-4 ${
-          project.item.desc || "text-gray-500"
-        }`}
-      >
+      <p className="text-gray-500">{project.item.dueDate}</p>
+      <p className={`py-4 ${project.item.desc || "text-gray-500"}`}>
         {project.item.desc || "No description"}
       </p>
     </div>
@@ -146,9 +142,7 @@ export function ProjectContentTask({ items, project, updateUI }) {
             </div>
           ))
         ) : (
-          <p className="font-[nunito-sans]">
-            This project does not have any tasks yet.
-          </p>
+          <p className="">This project does not have any tasks yet.</p>
         )}
       </div>
     </>

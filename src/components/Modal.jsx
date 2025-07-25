@@ -35,7 +35,7 @@ export default function Modal({ open, children }) {
     <dialog
       ref={dialog}
       className={
-        dialogStyle + (open ? " slide-up-realfast" : " slide-down-realfast")
+        dialogStyle + (open ? " in-slide-up-realfast" : " out-slide-down-realfast")
       }
     >
       {childAppear ? children : null}

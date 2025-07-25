@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Body from "./components/Body";
-import SideBar from "./components/Sidebar";
+import SideBar from "./components/SideBar";
 import ProjectContextProvider from "./features/project/context/ProjectContext";
 import ThemeContextProvider, {
   ThemeContext,
@@ -24,9 +24,10 @@ function AppContentWrapper() {
 
   return (
     <div className={`base ${theme === themeData.dark && "dark-mode"}`}>
-      <SideBar className="sidebar slide-right-slow" />
-      <Body className="body slide-up" />
-      <QuickMenu className="quick-menu slide-left-fast">
+      <SideBar className="sidebar sm:in-slide-right-slow in-slide-up" />
+      <Body className="body in-slide-up" />
+
+      <QuickMenu className="quick-menu in-slide-left-fast">
         <ThemeButton />
       </QuickMenu>
     </div>

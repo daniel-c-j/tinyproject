@@ -16,10 +16,8 @@ export default function NoSelectedProject({ onCreateProject }) {
         draggable="false"
       />
 
-      <h2 className="font-[nunito-sans] text-2xl p-2 font-bold">
-        No Project Selected
-      </h2>
-      <p className="font-[nunito-sans] text-gray-500">
+      <h2 className="text-2xl p-2 font-bold">No Project Selected</h2>
+      <p className="text-gray-500">
         Select a project or get started with a new one
       </p>
       <button

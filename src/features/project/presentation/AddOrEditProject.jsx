@@ -8,7 +8,7 @@ export default function AddOrEditProject() {
   const { selected, handleSaveEdit, handleCancelEdit } =
     useContext(ProjectContext);
 
-  const labelStyle = "font-[nunito-sans] block uppercase font-semibold mt-4";
+  const labelStyle = "block uppercase font-semibold mt-4";
   let inputStyle = "input-field w-full";
   if (theme === themeData.dark) inputStyle += " !bg-gray-600";
 
@@ -32,7 +32,7 @@ export default function AddOrEditProject() {
   };
 
   return (
-    <form className="slide-up-fast">
+    <form className="in-slide-up-fast">
       <div align="right">
         <button
           type="button"
