@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ProjectContext } from "../features/project/context/ProjectContext";
 import { Project } from "../features/project/model/Project";
 import logo from "/images/logo.png";
+import BarItem from "./BarItem";
 
 export default function SideBar({ className }) {
   const { items, selected, handleUpdateOrCreate, handleSelect } =
@@ -52,25 +53,5 @@ export default function SideBar({ className }) {
         <div className="scroll-shadow shadow-top bottom-0"></div>
       </div>
     </div>
-  );
-}
-
-function BarItem({ item, project, onSelect }) {
-  const barStyle = item === project ? "bar-item-active" : "bar-item-idle";
-  return (
-    <button
-      type="button"
-      className={barStyle + " "}
-      onClick={() => onSelect(project)}
-    >
-      <span className="sm:hidden inline font-bold">
-        {project.title.slice(0, 2)}
-      </span>
-      <span className="hidden sm:inline">
-        {project.title.length > 20
-          ? project.title.slice(0, 20) + "..."
-          : project.title}
-      </span>
-    </button>
   );
 }

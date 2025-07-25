@@ -384,12 +384,12 @@
   }
   @font-face {
     font-family: nunito-sans;
-    src: url(./nunito_sans-BjMAmxXG.ttf);
+    src: url(nunito_sans-BjMAmxXG.ttf);
     font-style: normal;
   }
   @font-face {
     font-family: nunito-sans;
-    src: url(./nunito_sans_italic-AEHiEU5b.ttf);
+    src: url(nunito_sans_italic-AEHiEU5b.ttf);
     font-style: italic;
   }
 }
@@ -999,6 +999,12 @@
     .md\:mt-5 {
       margin-top: calc(var(--spacing) * 5);
     }
+    .md\:hidden {
+      display: none;
+    }
+    .md\:inline {
+      display: inline;
+    }
     .md\:max-h-\[70vh\] {
       max-height: 70vh;
     }
@@ -1019,11 +1025,25 @@
     .lg\:mt-6 {
       margin-top: calc(var(--spacing) * 6);
     }
+    .lg\:hidden {
+      display: none;
+    }
+    .lg\:inline {
+      display: inline;
+    }
     .lg\:max-h-\[67\.5vh\] {
       max-height: 67.5vh;
     }
     .lg\:pt-10 {
       padding-top: calc(var(--spacing) * 10);
+    }
+  }
+  @media (min-width: 80rem) {
+    .xl\:hidden {
+      display: none;
+    }
+    .xl\:inline {
+      display: inline;
     }
   }
   .custom-scrollbar {
