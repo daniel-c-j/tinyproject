@@ -11,8 +11,7 @@ export default function Modal({ open, children }) {
   const [childAppear, setChildAppear] = useState(false);
   const dialog = useRef();
 
-  let dialogStyle =
-    "fixed top-[45%] left-[50%] -translate-[50%] w-[30%] max-w-[50%] max-h-[50%] overflow-y-auto rounded-lg transition";
+  let dialogStyle = "modal";
   if (theme === themeData.dark)
     dialogStyle +=
       " dark-mode shadow-lg shadow-green-950/80 border-1 border-green-900/80";
@@ -35,7 +34,8 @@ export default function Modal({ open, children }) {
     <dialog
       ref={dialog}
       className={
-        dialogStyle + (open ? " in-slide-up-realfast" : " out-slide-down-realfast")
+        dialogStyle +
+        (open ? " in-slide-up-realfast" : " out-slide-down-realfast")
       }
     >
       {childAppear ? children : null}

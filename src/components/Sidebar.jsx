@@ -1,52 +1,76 @@
 import { useContext } from "react";
 import { ProjectContext } from "../features/project/context/ProjectContext";
 import { Project } from "../features/project/model/Project";
+import logo from "/images/logo.png";
 
 export default function SideBar({ className }) {
   const { items, selected, handleUpdateOrCreate, handleSelect } =
     useContext(ProjectContext);
 
-  const idleBar =
-    "w-full py-1 px-2 mt-1 rounded-md font-[nunito-sans] text-left text-white transition hover:bg-green-600 active:bg-green-500";
-  const activeBar = `${idleBar} bg-green-800`;
-  const shadowIndicator = "w-[18vw] h-4 bg-green-900/80 absolute";
-
   return (
     <div className={className}>
-      <div className="pt-10 pb-4">
-        <h1 className="font-[nunito-sans] uppercase text-gray-100 text-xl font-bold">
+      <div className="sm:pt-6 md:pt-8 lg:pt-10 pb-4 sm:pb-4.5 md:pb-5">
+        <h1 className="hidden sm:inline uppercase text-gray-100 text-xl font-bold">
           Your projects
         </h1>
+
+        <img
+          src={logo}
+          alt="TinyProject logo"
+          width="35"
+          height="35"
+          draggable="false"
+          className="block w-full py-3 sm:hidden "
+        />
+
         <button
           type="button"
-          className="btn-primary mt-6"
+          className="btn-primary w-full py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
           onClick={() => handleUpdateOrCreate(new Project())}
         >
-          + Add Project
+          <span className="inline sm:hidden">+</span>
+          <span className="hidden sm:inline">+ Add Project</span>
         </button>
       </div>
 
-      <div className="max-h-[67.5vh] pr-2 pb-8 overflow-y-auto no-scrollbar">
+      <div className="max-h-[77.5vh] sm:max-h-[75vh] md:max-h-[70vh] lg:max-h-[67.5vh] pb-8 overflow-y-auto no-scrollbar">
         {/* This is a shadow and gap */}
-        <div className={`${shadowIndicator} shadow-bottom`}></div>
-        <div className="my-5"></div>
+        <div className="scroll-shadow shadow-bottom"></div>
+        <div className="my-[17.5pt] sm:my-6"></div>
 
         {items.length > 0 &&
           items.map((project, index) => (
-            <button
+            <BarItem
               key={index}
-              type="button"
-              className={selected.item === project ? activeBar : idleBar}
-              onClick={() => handleSelect(project)}
-            >
-              {project.title.length > 20
-                ? project.title.slice(0, 20) + "..."
-                : project.title}
-            </button>
+              item={selected.item}
+              project={project}
+              onSelect={handleSelect}
+            />
           ))}
 
-        <div className={`${shadowIndicator} shadow-top bottom-0`}></div>
+        {/* This is a shadow */}
+        <div className="scroll-shadow shadow-top bottom-0"></div>
       </div>
     </div>
+  );
+}
+
+function BarItem({ item, project, onSelect }) {
+  const barStyle = item === project ? "bar-item-active" : "bar-item-idle";
+  return (
+    <button
+      type="button"
+      className={barStyle + " "}
+      onClick={() => onSelect(project)}
+    >
+      <span className="sm:hidden inline font-bold">
+        {project.title.slice(0, 2)}
+      </span>
+      <span className="hidden sm:inline">
+        {project.title.length > 20
+          ? project.title.slice(0, 20) + "..."
+          : project.title}
+      </span>
+    </button>
   );
 }

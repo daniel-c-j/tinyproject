@@ -1,13 +1,17 @@
 import { createContext, useState } from "react";
-import theme from "./ThemeData";
+import ThemeStorage from "../data/ThemeStorage";
 
-const defaultTheme = theme.light;
+const initialValue = {
+  theme: ThemeStorage.retrieve(),
+  setTheme: () => {},
+};
 
-const ThemeContext = createContext({ theme: defaultTheme, setTheme: () => {} });
+const ThemeContext = createContext(initialValue);
 export { ThemeContext };
 
 export default function ThemeContextProvider({ children }) {
-  const [theme, setTheme] = useState(defaultTheme);
+  const [theme, setTheme] = useState(initialValue.theme);
+  ThemeStorage.store(theme);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

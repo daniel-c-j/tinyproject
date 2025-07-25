@@ -8,7 +8,7 @@ import ProjectStorage from "../data/ProjectStorage";
 import { ThemeContext } from "../../theme/context/ThemeContext";
 import themeData from "../../theme/context/ThemeData";
 
-const titleStyle = "text-3xl font-bold py-2";
+const titleStyle = "text-3xl font-bold py-2 pt-4 sm:pt-6 md:pt-8";
 
 export default function ProjectContent() {
   const {
@@ -23,7 +23,7 @@ export default function ProjectContent() {
   if (selected.isEditing) return <AddOrEditProject />;
 
   return (
-    <div className="in-slide-down-fast">
+    <div className="in-slide-down-realfast">
       <Modal open={showModal}>
         <ProjectDeletionConfirmation
           onDelete={() => handleDelete(selected.item)}
@@ -76,7 +76,7 @@ export function ProjectContentMain({ project }) {
 export function ProjectContentTask({ items, project, updateUI }) {
   const { theme } = useContext(ThemeContext);
 
-  let inputStyle = "input-field w-[35vw]";
+  let inputStyle = "input-field w-[50vw] sm:w-[42.5vw] md:w-[35vw] mr-2";
   if (theme === themeData.dark) inputStyle += " !bg-gray-600";
 
   // To delete unprocessed text whenever changing the project.
@@ -105,22 +105,23 @@ export function ProjectContentTask({ items, project, updateUI }) {
         <input type="text" ref={input} name="task" className={inputStyle} />
         <button
           type="button"
-          className={`btn-secondary mx-2 ${
+          className={`btn-secondary font-bold sm:font-normal ${
             theme === themeData.dark && "hover:!bg-white/10"
           }`}
           onClick={() =>
             handleAddTask({ id: uuidv4(), value: input.current.value })
           }
         >
-          + Add Task
+          <span className="inline sm:hidden">+</span>
+          <span className="hidden sm:inline">+ Add</span>
         </button>
       </div>
 
       {/* To immediately update UI, utilizing dynamic key.*/}
-      <div key={uuidv4()}>
+      <div key={uuidv4()} className="pb-8">
         {project.item.task.length > 0 ? (
           project.item.task.map((projectTask, index) => (
-            <div key={index}>
+            <div key={index} className="block">
               <input
                 type="text"
                 name="task"
@@ -134,15 +135,16 @@ export function ProjectContentTask({ items, project, updateUI }) {
               />
               <button
                 type="button"
-                className="btn-secondary-alert mx-2"
+                className="btn-secondary-alert font-bold sm:font-normal"
                 onClick={() => handleRemoveTask(projectTask)}
               >
-                Remove
+                <span className="inline sm:hidden">-</span>
+                <span className="hidden sm:inline">Remove</span>
               </button>
             </div>
           ))
         ) : (
-          <p className="">This project does not have any tasks yet.</p>
+          <p>This project does not have any tasks yet.</p>
         )}
       </div>
     </>

@@ -11,7 +11,9 @@
   }
 
   .body {
-    @apply flex-[75%] min-h-screen max-h-screen overflow-y-auto p-12 pt-22;
+    @apply flex-[90%] min-h-screen max-h-screen overflow-y-auto p-6 pt-12
+    sm:flex-[85%] sm:p-8 sm:pt-16
+    md:flex-[75%] md:p-12 md:pt-20;
   }
 
   .inner-body {
@@ -32,13 +34,38 @@
 }
 
 @layer components {
+  .modal {
+    @apply fixed top-[45%] left-[50%] -translate-[50%] w-[70%] max-w-[70%] max-h-[60%] overflow-y-auto rounded-lg transition
+    sm:w-[50%] sm:max-w-[50%] sm:max-h-[60%]
+    md:w-[40%] md:max-w-[40%] md:max-h-[55%]
+    lg:w-[30%] lg:max-w-[30%] lg:max-h-[50%];
+  }
+
   .sidebar {
-    @apply flex-[20%] px-8 bg-green-900
-    sm:mt-[7.5vh] sm:max-h-[92.5vh] sm:rounded-tr-2xl;
+    @apply flex-[10%] flex-shrink-0 px-2 bg-green-900 max-h-[95vh] mt-[5vh] rounded-tr-2xl
+    sm:flex-[15%] sm:px-4
+    md:flex-[25%] md:px-6 md:mt-[7.5vh] md:max-h-[92.5vh] md:rounded-tr-2xl
+    lg:px-8;
   }
 
   .quick-menu {
-    @apply fixed bottom-0 right-0 p-2 pb-1 bg-green-900 rounded-tl-md;
+    @apply fixed right-0 bottom-0 p-2 pb-1 scale-[80%] translate-1.25 bg-green-900 rounded-tl-md
+    sm:scale-[90%] sm:translate-0.75
+    md:scale-[100%] md:translate-0;
+  }
+
+  .bar-item-idle {
+    @apply block w-full py-1 px-2 mb-1.5 text-center rounded-md text-white transition hover:bg-green-600 active:bg-green-500
+    sm:w-full sm:px-2 sm:mb-1 sm:text-left;
+  }
+
+  .bar-item-active {
+    @apply block w-full py-1 px-2 mb-1.5 text-center rounded-md text-white transition hover:bg-green-600 active:bg-green-500 bg-green-800
+    sm:w-full sm:px-2 sm:mb-1 sm:text-left;
+  }
+
+  .input-field {
+    @apply p-2 my-1 rounded-md bg-gray-300 border-b-1 border-green-500 focus:border-1 focus:outline-none;
   }
 
   .btn-primary {
@@ -60,10 +87,6 @@
     @apply px-4 py-2 rounded-md transition 
   text-red-600 bg-none hover:text-white hover:bg-red-600 active:bg-red-500;
   }
-
-  .input-field {
-    @apply p-2 my-1 rounded-md bg-gray-300 border-b-1 border-green-500 focus:border-1 focus:outline-none;
-  }
 }
 
 @layer utilities {
@@ -76,6 +99,13 @@
   .no-scrollbar {
     scrollbar-width: none;
     scrollbar-color: transparent transparent;
+  }
+
+  .scroll-shadow {
+    @apply w-[77.5%] h-4 bg-green-900/80 absolute
+    sm:w-[85%]
+    md:w-[82.5%]
+    lg:w-[80%];
   }
 
   .shadow-top {
@@ -111,6 +141,10 @@
 
 @utility in-slide-down-fast {
   animation: in-slide-down 0.5s ease forwards;
+}
+
+@utility in-slide-down-realfast {
+  animation: in-slide-down 0.25s ease forwards;
 }
 
 @utility out-slide-down {
