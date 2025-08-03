@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import NoSelectedProject from "../features/project/presentation/NoSelectedProject";
-import ProjectContent from "../features/project/presentation/ProjectContent";
-import { ProjectContext } from "../features/project/context/ProjectContext";
+import ProjectUnselected from "../../project/components/ProjectUnselected";
+import ProjectContent from "../../project/components/content/ProjectContent";
+import { ProjectContext } from "../../../contexts/ProjectContext";
 
 export default function Body({ className }) {
   const { selected, handleUpdateOrCreate } = useContext(ProjectContext);
 
-  let content = <NoSelectedProject onCreateProject={handleUpdateOrCreate} />;
+  let content = <ProjectUnselected onCreateProject={handleUpdateOrCreate} />;
   if (selected.item) content = <ProjectContent />;
 
   return (

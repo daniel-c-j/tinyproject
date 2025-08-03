@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
-import { ProjectContext } from "../context/ProjectContext";
+import { ProjectContext } from "../../../contexts/ProjectContext";
 
-export default function AddOrEditProject() {
+export default function ProjectForm() {
   const { selected, handleSaveEdit, handleCancelEdit } =
     useContext(ProjectContext);
 

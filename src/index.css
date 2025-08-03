@@ -57,12 +57,6 @@
     md:scale-[100%] md:translate-0;
   }
 
-  .task-list {
-    @apply w-[80%] 
-    sm:w-[75%] 
-    md:w-[70%];
-  }
-
   .bar-item-idle {
     @apply block w-full py-1 px-2 mb-1.5 text-center rounded-md text-white transition hover:bg-green-600 active:bg-green-500
     sm:w-full sm:px-2 sm:mb-1 sm:text-left;
@@ -88,11 +82,21 @@
 
   .btn-secondary {
     @apply px-4 py-2 rounded-md transition font-medium text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300
-  dark:hover:bg-white/10 dark:active:bg-white/20;
+    dark:hover:bg-white/10 dark:active:bg-white/20;
   }
 
   .btn-secondary-alert {
     @apply px-4 py-2 rounded-md transition font-medium text-red-600 hover:text-white bg-none hover:bg-red-600 active:bg-red-500;
+  }
+
+  .project-title {
+    @apply text-3xl font-bold py-2 pt-4 sm:pt-6 md:pt-8;
+  }
+
+  .task-list {
+    @apply w-[80%] 
+    sm:w-[75%] 
+    md:w-[70%];
   }
 }
 

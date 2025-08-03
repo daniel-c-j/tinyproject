@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ThemeContext } from "../features/theme/context/ThemeContext";
-import themeData from "../features/theme/context/ThemeData";
+import { ThemeContext } from "../../../contexts/ThemeContext";
+import themeData from "../../theme/data/ThemeData";
 
 export default function Modal({ open, children }) {
   const { theme } = useContext(ThemeContext);

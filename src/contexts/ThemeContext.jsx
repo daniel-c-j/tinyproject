@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import ThemeStorage from "../data/ThemeStorage";
+import ThemeStorage from "../features/theme/data/ThemeStorage";
 
 const initialValue = {
   theme: ThemeStorage.retrieve(),

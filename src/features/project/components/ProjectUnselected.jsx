@@ -1,7 +1,7 @@
 import { Project } from "../model/Project";
 import logo from "../../../assets/images/no-projects.png";
 
-export default function NoSelectedProject({ onCreateProject }) {
+export default function ProjectUnselected({ onCreateProject }) {
   return (
     <div className="flex flex-col h-[75vh] items-center justify-center in-slide-down-realfast">
       <img

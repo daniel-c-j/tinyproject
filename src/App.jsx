@@ -1,16 +1,16 @@
 import { useContext } from "react";
-import Body from "./components/Body";
-import ProjectContextProvider from "./features/project/context/ProjectContext";
-import ThemeContextProvider, {
-  ThemeContext,
-} from "./features/theme/context/ThemeContext";
-import themeData from "./features/theme/context/ThemeData";
-import QuickMenu from "./components/QuickMenu";
-import ThemeButton from "./features/theme/presentation/ThemeButton";
-import SideBar from "./components/SideBar";
+import Body from "./features/base/components/Body";
+import ProjectContextProvider from "./contexts/ProjectContext";
+import ThemeContextProvider, { ThemeContext } from "./contexts/ThemeContext";
+import themeData from "./features/theme/data/ThemeData";
+import QuickMenu from "./features/base/components/QuickMenu";
+import ThemeButton from "./features/theme/components/ThemeButton";
+import SideBar from "./features/base/components/SideBar";
 
 function App() {
   return (
+    // <RouterProvider />
+
     <ThemeContextProvider>
       <ProjectContextProvider>
         <AppContentWrapper />
