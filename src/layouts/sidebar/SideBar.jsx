@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { ProjectContext } from "../features/project/context/ProjectContext";
-import { Project } from "../features/project/model/Project";
 import logo from "/images/logo.png";
 import SideBarItem from "./SideBarItem";
+import { ProjectContext } from "../../contexts/ProjectContext";
+import { Project } from "../../features/project/model/Project";
 
 export default function SideBar({ className }) {
   const { items, selected, handleUpdateOrCreate, handleSelect } =

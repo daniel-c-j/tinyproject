@@ -1,7 +1,11 @@
 import { Project } from "../model/Project";
 import logo from "../../../assets/images/no-projects.png";
+import { useContext } from "react";
+import { ProjectContext } from "../../../contexts/ProjectContext";
 
-export default function NoSelectedProject({ onCreateProject }) {
+export default function ProjectUnselected() {
+  const { onCreateProject } = useContext(ProjectContext);
+
   return (
     <div className="flex flex-col h-[75vh] items-center justify-center in-slide-down-realfast">
       <img

@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
-import ProjectStorage from "../data/ProjectStorage";
-import { useDebounce } from "../../../util/debounce";
+import ProjectStorage from "../features/project/data/ProjectStorage";
+import { useDebounce } from "../util/debounce";
 
 const defaultSelectedState = {
   item: null,

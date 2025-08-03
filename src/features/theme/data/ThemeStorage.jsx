@@ -1,4 +1,4 @@
-import themeData from "../context/ThemeData";
+import themeData from "./ThemeData";
 
 export default class ThemeStorage {
   static key = "theme";

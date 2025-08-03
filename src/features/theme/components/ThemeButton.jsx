@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import dark from "../../../assets/images/dark.png";
 import light from "../../../assets/images/light.png";
-import { ThemeContext } from "../../theme/context/ThemeContext";
-import themeData from "../../theme/context/ThemeData";
+import { ThemeContext } from "../../../contexts/ThemeContext";
+import themeData from "../data/ThemeData";
 
 export default function ThemeButton() {
   const { theme, setTheme } = useContext(ThemeContext);
