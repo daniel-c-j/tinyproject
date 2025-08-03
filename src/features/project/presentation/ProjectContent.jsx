@@ -5,8 +5,6 @@ import { ProjectContext } from "../context/ProjectContext";
 import Modal from "../../../components/Modal";
 import ProjectDeletionConfirmation from "./ProjectDeletionConfirmation";
 import ProjectStorage from "../data/ProjectStorage";
-import { ThemeContext } from "../../theme/context/ThemeContext";
-import themeData from "../../theme/context/ThemeData";
 
 const titleStyle = "text-3xl font-bold py-2 pt-4 sm:pt-6 md:pt-8";
 
@@ -74,10 +72,8 @@ export function ProjectContentMain({ project }) {
 }
 
 export function ProjectContentTask({ items, project, updateUI }) {
-  const { theme } = useContext(ThemeContext);
-
-  let inputStyle = "input-field w-[50vw] sm:w-[42.5vw] md:w-[35vw] mr-2";
-  if (theme === themeData.dark) inputStyle += " !bg-gray-600";
+  const inputStyle =
+    "input-field mr-2 task-list opacity-85 hover:!opacity-100 focus:!opacity-100";
 
   // To delete unprocessed text whenever changing the project.
   const input = useRef();
@@ -102,18 +98,22 @@ export function ProjectContentTask({ items, project, updateUI }) {
     <>
       <h1 className={titleStyle}>Tasks</h1>
       <div className="my-2">
-        <input type="text" ref={input} name="task" className={inputStyle} />
+        <input
+          type="text"
+          ref={input}
+          name="task"
+          className={inputStyle + " italic"}
+          placeholder="what should be done...?"
+        />
         <button
           type="button"
-          className={`btn-secondary font-bold sm:font-normal ${
-            theme === themeData.dark && "hover:!bg-white/10"
-          }`}
+          className="btn-secondary font-bold sm:font-normal"
           onClick={() =>
             handleAddTask({ id: uuidv4(), value: input.current.value })
           }
         >
           <span className="inline sm:hidden">+</span>
-          <span className="hidden sm:inline">+ Add</span>
+          <span className="hidden sm:inline">Add</span>
         </button>
       </div>
 
@@ -131,7 +131,7 @@ export function ProjectContentTask({ items, project, updateUI }) {
                   projectTask.value = e.target.value;
                   ProjectStorage.store(items);
                 }}
-                className={`${inputStyle} opacity-80`}
+                className={inputStyle}
               />
               <button
                 type="button"

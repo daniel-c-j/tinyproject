@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ProjectContext } from "../features/project/context/ProjectContext";
 import { Project } from "../features/project/model/Project";
 import logo from "/images/logo.png";
-import BarItem from "./BarItem";
+import SideBarItem from "./SideBarItem";
 
 export default function SideBar({ className }) {
   const { items, selected, handleUpdateOrCreate, handleSelect } =
@@ -30,7 +30,8 @@ export default function SideBar({ className }) {
           onClick={() => handleUpdateOrCreate(new Project())}
         >
           <span className="inline sm:hidden">+</span>
-          <span className="hidden sm:inline">+ Add Project</span>
+          <span className="hidden sm:inline md:hidden">+ Add</span>
+          <span className="hidden md:inline">+ Add Project</span>
         </button>
       </div>
 
@@ -41,7 +42,7 @@ export default function SideBar({ className }) {
 
         {items.length > 0 &&
           items.map((project, index) => (
-            <BarItem
+            <SideBarItem
               key={index}
               item={selected.item}
               project={project}

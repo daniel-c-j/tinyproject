@@ -11,7 +11,7 @@ function optimizeTitle(title, length) {
   return tempTitle;
 }
 
-export default function BarItem({ item, project, onSelect }) {
+export default function SideBarItem({ item, project, onSelect }) {
   const barStyle = item === project ? "bar-item-active" : "bar-item-idle";
 
   return (

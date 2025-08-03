@@ -1,16 +1,12 @@
 import { useContext, useEffect, useRef } from "react";
 import { ProjectContext } from "../context/ProjectContext";
-import { ThemeContext } from "../../theme/context/ThemeContext";
-import themeData from "../../theme/context/ThemeData";
 
 export default function AddOrEditProject() {
-  const { theme } = useContext(ThemeContext);
   const { selected, handleSaveEdit, handleCancelEdit } =
     useContext(ProjectContext);
 
   const labelStyle = "block uppercase font-semibold mt-4";
-  let inputStyle = "input-field w-full";
-  if (theme === themeData.dark) inputStyle += " !bg-gray-600";
+  const inputStyle = "input-field w-full";
 
   const form = useRef(selected.item);
   const title = useRef();
@@ -37,9 +33,7 @@ export default function AddOrEditProject() {
         <button
           type="button"
           onClick={() => handleCancelEdit()}
-          className={`btn-secondary mx-1 ${
-            theme === themeData.dark && "hover:!bg-white/10"
-          }`}
+          className="btn-secondary mx-1"
         >
           Cancel
         </button>

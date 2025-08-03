@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import Body from "./components/Body";
-import SideBar from "./components/Sidebar";
 import ProjectContextProvider from "./features/project/context/ProjectContext";
 import ThemeContextProvider, {
   ThemeContext,
@@ -8,6 +7,7 @@ import ThemeContextProvider, {
 import themeData from "./features/theme/context/ThemeData";
 import QuickMenu from "./components/QuickMenu";
 import ThemeButton from "./features/theme/presentation/ThemeButton";
+import SideBar from "./components/SideBar";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function AppContentWrapper() {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className={`base ${theme === themeData.dark && "dark-mode"}`}>
+    <div className="base" data-theme={theme === themeData.dark && "dark"}>
       <SideBar className="sidebar in-slide-right-slow" />
       <Body className="body in-slide-up" />
 

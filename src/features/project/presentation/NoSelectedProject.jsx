@@ -3,10 +3,7 @@ import logo from "../../../assets/images/no-projects.png";
 
 export default function NoSelectedProject({ onCreateProject }) {
   return (
-    <div
-      align="center"
-      className="flex flex-col h-[75vh] items-center justify-center"
-    >
+    <div className="flex flex-col h-[75vh] items-center justify-center in-slide-down-realfast">
       <img
         src={logo}
         alt="No project logo"

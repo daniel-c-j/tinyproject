@@ -11,11 +11,6 @@ export default function Modal({ open, children }) {
   const [childAppear, setChildAppear] = useState(false);
   const dialog = useRef();
 
-  let dialogStyle = "modal";
-  if (theme === themeData.dark)
-    dialogStyle +=
-      " dark-mode shadow-lg shadow-green-950/80 border-1 border-green-900/80";
-
   useEffect(() => {
     if (open) {
       setChildAppear(true);
@@ -33,9 +28,9 @@ export default function Modal({ open, children }) {
   return createPortal(
     <dialog
       ref={dialog}
+      data-theme={theme === themeData.dark && "dark"}
       className={
-        dialogStyle +
-        (open ? " in-slide-up-realfast" : " out-slide-down-realfast")
+        "modal" + (open ? " in-slide-up-realfast" : " out-slide-down-realfast")
       }
     >
       {childAppear ? children : null}
