@@ -4,36 +4,30 @@ import { useDebounce } from "../util/debounce";
 
 const projectInitialValue = {
   items: ProjectStorage.retrieve(),
-  handleSelect: () => {},
-  handleUpdateOrCreate: () => {},
   handleDelete: () => {},
-  handleSaveEdit: () => {},
-  handleCancelEdit: () => {},
+  handleSave: () => {},
+  handleUpdate: () => {},
 };
+const type = { DELETE: "DELETE", SAVE: "SAVE", UPDATE: "UPDATE" };
 
 const ProjectContext = createContext(projectInitialValue);
 export { ProjectContext };
 
-const type = {
-  SELECT: "SELECT",
-  CREATE_UPDATE: "CREATE_UPDATE",
-  DELETE: "DELETE",
-  SAVE_EDIT: "SAVE_EDIT",
-  CANCEL_EDIT: "CANCEL_EDIT",
-};
-z;
 function projectReducer(state, action) {
-  if (action.type === type.SELECT) {
+  if (action.type === type.SAVE) {
     return {
       ...state,
-      selected: { item: action.payload, isEditing: false },
+      items: [...state.items, action.payload],
     };
   }
 
-  if (action.type === type.CREATE_UPDATE) {
+  if (action.type === type.UPDATE) {
     return {
       ...state,
-      selected: { item: action.payload, isEditing: true },
+      items: state.items.map((project) => {
+        if (project.id === action.payload.id) return action.payload;
+        return project;
+      }),
     };
   }
 
@@ -41,33 +35,6 @@ function projectReducer(state, action) {
     return {
       ...state,
       items: state.items.filter((project) => project.id !== action.payload.id),
-      selected: defaultSelectedState,
-    };
-  }
-
-  if (action.type === type.SAVE_EDIT) {
-    const isListed = state.items.some(
-      (project) => project.id === state.selected.item?.id
-    );
-
-    return {
-      ...state,
-      items: [...state.items, ...(!isListed ? [action.payload] : [])],
-      selected: { item: action.payload, isEditing: false },
-    };
-  }
-
-  if (action.type === type.CANCEL_EDIT) {
-    const isListed = state.items.some(
-      (project) => project.id === state.selected.item.id
-    );
-
-    return {
-      ...state,
-      selected: {
-        item: isListed ? state.selected.item : null,
-        isEditing: false,
-      },
     };
   }
 
@@ -82,34 +49,23 @@ export default function ProjectContextProvider({ children }) {
   // Persists data.
   useDebounce(() => ProjectStorage.store(projectState.items), 500);
 
-  const handleSelect = (project) => {
-    projectDispatch({ type: type.SELECT, payload: project });
-  };
-
-  const handleUpdateOrCreate = (project) => {
-    projectDispatch({ type: type.CREATE_UPDATE, payload: project });
-  };
-
   const handleDelete = (project) => {
     projectDispatch({ type: type.DELETE, payload: project });
   };
 
-  const handleSaveEdit = (project) => {
-    projectDispatch({ type: type.SAVE_EDIT, payload: project });
+  const handleSave = (project) => {
+    projectDispatch({ type: type.SAVE, payload: project });
   };
 
-  const handleCancelEdit = () => {
-    projectDispatch({ type: type.CANCEL_EDIT });
+  const handleUpdate = (project) => {
+    projectDispatch({ type: type.UPDATE, payload: project });
   };
 
   const ctxValue = {
     items: projectState.items,
-    selected: projectState.selected,
-    handleSelect,
-    handleUpdateOrCreate,
     handleDelete,
-    handleSaveEdit,
-    handleCancelEdit,
+    handleSave,
+    handleUpdate,
   };
 
   return (

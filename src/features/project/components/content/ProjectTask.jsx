@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { uid } from "uid/secure";
 import ProjectStorage from "../../data/ProjectStorage";
 
-export default function ProjectTask({ items, project, updateUI }) {
+export default function ProjectTask({ items, project, update }) {
   const inputStyle =
     "input-field mr-2 task-list opacity-85 hover:!opacity-100 focus:!opacity-100";
 
@@ -15,12 +15,12 @@ export default function ProjectTask({ items, project, updateUI }) {
   function handleAddTask(newTask) {
     input.current.value = "";
     project.task = [newTask, ...(project.task ?? [])];
-    updateUI(project);
+    update(project);
   }
 
   function handleRemoveTask(delTask) {
     project.task = project.task.filter((task) => task.id !== delTask.id);
-    updateUI(project);
+    update(project);
   }
 
   return (
@@ -38,7 +38,7 @@ export default function ProjectTask({ items, project, updateUI }) {
           type="button"
           className="btn-secondary font-bold sm:font-normal"
           onClick={() =>
-            handleAddTask({ id: uuidv4(), value: input.current.value })
+            handleAddTask({ id: uid(12), value: input.current.value })
           }
         >
           <span className="inline sm:hidden">+</span>
@@ -47,7 +47,7 @@ export default function ProjectTask({ items, project, updateUI }) {
       </div>
 
       {/* To immediately update UI, utilizing dynamic key.*/}
-      <div key={uuidv4()} className="pb-8">
+      <div key={uid(12)} className="pb-8">
         {project.task.length > 0 ? (
           project.task.map((projectTask, index) => (
             <div key={index} className="block">
@@ -55,7 +55,6 @@ export default function ProjectTask({ items, project, updateUI }) {
                 type="text"
                 name="task"
                 defaultValue={projectTask.value}
-                // This will trigger the debouncer to update the UI
                 onChange={(e) => {
                   projectTask.value = e.target.value;
                   ProjectStorage.store(items);

@@ -8,8 +8,8 @@ export default function ProjectDeletionConfirmation({ showModal, onDelete }) {
           type="button"
           className="btn-primary-alert ml-2"
           onClick={() => {
-            onDelete();
             showModal(false);
+            onDelete();
           }}
         >
           Delete

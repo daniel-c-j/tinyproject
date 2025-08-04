@@ -1,16 +1,15 @@
-import { v4 as uuidv4 } from "uuid";
-import { getCurrentFormattedDate } from "../../../util/formatDate";
+import { uid } from "uid/secure";
 
 export class Project {
   constructor(
     id = null,
     title = "",
     desc = null,
-    dateAdded = getCurrentFormattedDate(),
+    dateAdded = Date.now(),
     dueDate = null,
     task = []
   ) {
-    this.id = id || uuidv4();
+    this.id = id || uid(8);
     this.title = title;
     this.desc = desc;
     this.dateAdded = dateAdded;

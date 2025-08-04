@@ -9,18 +9,23 @@ const inputStyle = "input-field w-full";
 const getEmptyProject = () => new Project();
 
 export default function ProjectForm() {
-  const data = useRouteLoaderData("project-content");
-  const projectData = data || getEmptyProject();
+  const { items, handleSave, handleUpdate } = useContext(ProjectContext);
+
+  const projectId = useRouteLoaderData("project-content");
+  const dataFromCtx = items.find((proj) => proj.id == projectId);
+  const projectData = dataFromCtx || getEmptyProject();
+
+  const isNew = dataFromCtx === undefined;
 
   // Focus on data that is change-able in this scope.
-  const { handleSaveEdit } = useContext(ProjectContext);
   const handleSubmitClientside = (event) => {
     const formData = new FormData(event.target);
     projectData.title = formData.get("title");
     projectData.desc = formData.get("desc");
     projectData.dueDate = formData.get("date");
 
-    handleSaveEdit(projectData);
+    if (isNew) return handleSave(projectData);
+    return handleUpdate(projectData);
   };
 
   return (

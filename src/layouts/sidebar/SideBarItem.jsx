@@ -1,3 +1,5 @@
+import { useNavigate, useRouteLoaderData } from "react-router";
+
 function optimizeTitle(title, length) {
   const words = title.split(" ");
   let tempTitle = "";
@@ -11,14 +13,18 @@ function optimizeTitle(title, length) {
   return tempTitle;
 }
 
-export default function SideBarItem({ item, project, onSelect }) {
-  const barStyle = item === project ? "bar-item-active" : "bar-item-idle";
+export default function SideBarItem({ project }) {
+  const projectId = useRouteLoaderData("project-content");
+  const navigate = useNavigate();
+
+  const barStyle =
+    projectId === project.id ? "bar-item-active" : "bar-item-idle";
 
   return (
     <button
       type="button"
-      className={barStyle + " "}
-      onClick={() => onSelect(project)}
+      className={barStyle}
+      onClick={() => navigate(`/project/${project.id}`)}
     >
       <span className="sm:hidden inline font-bold">
         {project.title.slice(0, 2)}

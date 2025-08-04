@@ -9,6 +9,7 @@ import ProjectContent, {
 } from "../features/project/components/content/ProjectContent";
 import InnerLayout from "../layouts/root/InnerLayout";
 import NotFoundRoute from "./NotFoundRoute";
+import { action as projectContentEditAction } from "../features/project/components/content/ProjectHeader";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: ProjectUnselected },
       {
-        // * This is only a wrapper, and does not set the /project path here,
+        // * This is only a wrapper, and does not set the "project/" path here,
         // * since no content exists there.
         Component: InnerLayout,
         children: [
@@ -27,8 +28,16 @@ const router = createBrowserRouter([
             id: "project-content",
             loader: projectContentLoader,
             children: [
-              { index: true, Component: ProjectContent },
-              { path: "edit", Component: ProjectForm },
+              {
+                index: true,
+                Component: ProjectContent,
+                action: projectContentEditAction,
+              },
+              {
+                path: "edit",
+                Component: ProjectForm,
+                action: projectFormAction,
+              },
             ],
           },
           {
