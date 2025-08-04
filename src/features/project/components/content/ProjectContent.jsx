@@ -1,55 +1,41 @@
-import { useContext, useState } from "react";
-import ProjectForm from "../ProjectForm";
+import { useContext } from "react";
 import { ProjectContext } from "../../../../contexts/ProjectContext";
-import Modal from "../../../common/Modal";
-import ProjectDeletionConfirmation from "../ProjectDeletionConfirmation";
 import ProjectDesc from "./ProjectDesc";
 import ProjectTask from "./ProjectTask";
+import { useRouteLoaderData } from "react-router";
+import ProjectHeader from "./ProjectHeader";
 
 export default function ProjectContent() {
-  const {
-    items,
-    selected,
-    handleSaveEdit,
-    handleDelete,
-    handleUpdateOrCreate,
-  } = useContext(ProjectContext);
-  const [showModal, setShowModal] = useState(false);
+  const { items, handleSaveEdit, handleDelete, handleUpdateOrCreate } =
+    useContext(ProjectContext);
 
-  if (selected.isEditing) return <ProjectForm />;
+  const projectId = useRouteLoaderData("project-content");
+  const projectData = items.find((proj) => proj.id == projectId);
 
   return (
     <div className="in-slide-down-realfast">
-      <Modal open={showModal}>
-        <ProjectDeletionConfirmation
-          onDelete={() => handleDelete(selected.item)}
-          showModal={setShowModal}
-        />
-      </Modal>
+      <ProjectHeader
+        project={projectData}
+        onUpdate={handleUpdateOrCreate}
+        onDelete={handleDelete}
+      />
 
-      <div align="right">
-        <button
-          type="button"
-          className="btn-secondary-alert mx-1"
-          onClick={() => setShowModal(true)}
-        >
-          Delete
-        </button>
-        <button
-          type="submit"
-          className="btn-primary mx-1"
-          onClick={() => handleUpdateOrCreate(selected.item)}
-        >
-          Edit
-        </button>
-      </div>
-
-      <ProjectDesc project={selected} />
+      <ProjectDesc project={projectData} />
 
       <hr className="opacity-20 border-1 my-4 border-green-800" />
 
-      <h1 className="project-title">Tasks</h1>
-      <ProjectTask items={items} project={selected} updateUI={handleSaveEdit} />
+      <ProjectTask
+        items={items}
+        project={projectData}
+        updateUI={handleSaveEdit}
+      />
     </div>
   );
+}
+
+// TODO simulate delay-loading.
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader({ params }) {
+  return params.projectId;
 }

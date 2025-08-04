@@ -4,7 +4,6 @@ import ThemeContextProvider, {
 } from "../../contexts/ThemeContext";
 import themeData from "../../features/theme/data/ThemeData";
 import SideBar from "../sidebar/SideBar";
-import Body from "../../features/common/components/Body";
 import QuickMenu from "../quickmenu/QuickMenu";
 import ThemeButton from "../../features/theme/components/ThemeButton";
 import ProjectContextProvider from "../../contexts/ProjectContext";

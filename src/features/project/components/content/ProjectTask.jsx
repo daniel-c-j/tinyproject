@@ -14,19 +14,18 @@ export default function ProjectTask({ items, project, updateUI }) {
 
   function handleAddTask(newTask) {
     input.current.value = "";
-    project.item.task = [newTask, ...(project.item.task ?? [])];
-    updateUI(project.item);
+    project.task = [newTask, ...(project.task ?? [])];
+    updateUI(project);
   }
 
   function handleRemoveTask(delTask) {
-    project.item.task = project.item.task.filter(
-      (task) => task.id !== delTask.id
-    );
-    updateUI(project.item);
+    project.task = project.task.filter((task) => task.id !== delTask.id);
+    updateUI(project);
   }
 
   return (
     <>
+      <h1 className="project-title">Tasks</h1>
       <div className="my-2">
         <input
           type="text"
@@ -49,8 +48,8 @@ export default function ProjectTask({ items, project, updateUI }) {
 
       {/* To immediately update UI, utilizing dynamic key.*/}
       <div key={uuidv4()} className="pb-8">
-        {project.item.task.length > 0 ? (
-          project.item.task.map((projectTask, index) => (
+        {project.task.length > 0 ? (
+          project.task.map((projectTask, index) => (
             <div key={index} className="block">
               <input
                 type="text"

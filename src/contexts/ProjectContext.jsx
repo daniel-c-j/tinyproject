@@ -2,14 +2,8 @@ import { createContext, useReducer } from "react";
 import ProjectStorage from "../features/project/data/ProjectStorage";
 import { useDebounce } from "../util/debounce";
 
-const defaultSelectedState = {
-  item: null,
-  isEditing: false,
-};
-
 const projectInitialValue = {
   items: ProjectStorage.retrieve(),
-  selected: defaultSelectedState,
   handleSelect: () => {},
   handleUpdateOrCreate: () => {},
   handleDelete: () => {},
@@ -27,7 +21,7 @@ const type = {
   SAVE_EDIT: "SAVE_EDIT",
   CANCEL_EDIT: "CANCEL_EDIT",
 };
-
+z;
 function projectReducer(state, action) {
   if (action.type === type.SELECT) {
     return {

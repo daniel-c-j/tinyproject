@@ -1,81 +1,96 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { ProjectContext } from "../../../contexts/ProjectContext";
+import { Project } from "../model/Project";
+import { Form, redirect, useNavigate, useRouteLoaderData } from "react-router";
+
+const labelStyle = "block uppercase font-semibold mt-4";
+const inputStyle = "input-field w-full";
+
+const getEmptyProject = () => new Project();
 
 export default function ProjectForm() {
-  const { selected, handleSaveEdit, handleCancelEdit } =
-    useContext(ProjectContext);
+  const data = useRouteLoaderData("project-content");
+  const projectData = data || getEmptyProject();
 
-  const labelStyle = "block uppercase font-semibold mt-4";
-  const inputStyle = "input-field w-full";
+  // Focus on data that is change-able in this scope.
+  const { handleSaveEdit } = useContext(ProjectContext);
+  const handleSubmitClientside = (event) => {
+    const formData = new FormData(event.target);
+    projectData.title = formData.get("title");
+    projectData.desc = formData.get("desc");
+    projectData.dueDate = formData.get("date");
 
-  const form = useRef(selected.item);
-  const title = useRef();
-
-  useEffect(() => {
-    title.current.focus();
-  });
-
-  const handleTitleChange = (e) => {
-    form.current.title = e.target.value;
-  };
-
-  const handleDescChange = (e) => {
-    form.current.desc = e.target.value;
-  };
-
-  const handleDueDateChange = (e) => {
-    form.current.dueDate = e.target.value;
+    handleSaveEdit(projectData);
   };
 
   return (
-    <form className="in-slide-up-fast">
-      <div align="right">
-        <button
-          type="button"
-          onClick={() => handleCancelEdit()}
-          className="btn-secondary mx-1"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          onClick={() =>
-            form.current.title !== "" && handleSaveEdit(form.current)
-          }
-          className="btn-primary mx-1"
-        >
-          Save
-        </button>
-      </div>
+    <Form
+      method="POST"
+      onSubmit={(e) => handleSubmitClientside(e)}
+      className="in-slide-up-fast"
+    >
+      <ProjectFormHeader />
 
-      <label className={labelStyle}>title</label>
+      {/* Hidden input so that id can be processed in action fn. */}
+      <input type="text" name="id" defaultValue={projectData.id} hidden />
+
+      <label htmlFor="title" className={labelStyle}>
+        title
+      </label>
       <input
-        ref={title}
         type="text"
         name="title"
         className={inputStyle}
-        onChange={handleTitleChange}
-        defaultValue={selected?.item.title}
+        defaultValue={projectData.title}
         required
+        autoFocus
       />
 
-      <label className={labelStyle}>Description</label>
+      <label htmlFor="desc" className={labelStyle}>
+        Description
+      </label>
       <textarea
         name="desc"
-        className={inputStyle + " resize-y"}
+        className={inputStyle + " resize-y min-h-[7.5vw]"}
         rows="3"
-        onChange={handleDescChange}
-        defaultValue={selected?.item.desc}
+        defaultValue={projectData.desc}
       />
 
-      <label className={labelStyle}>Due Date</label>
+      <label htmlFor="date" className={labelStyle}>
+        Due Date
+      </label>
       <input
         type="date"
         name="date"
         className={inputStyle}
-        onChange={handleDueDateChange}
-        defaultValue={selected?.item.dueDate}
+        defaultValue={projectData.dueDate}
       />
-    </form>
+    </Form>
   );
+}
+
+function ProjectFormHeader() {
+  const navigate = useNavigate();
+
+  return (
+    <div align="right">
+      <button
+        type="button"
+        onClick={() => navigate("/")}
+        className="btn-secondary mx-1"
+      >
+        Cancel
+      </button>
+      <button type="submit" className="btn-primary mx-1">
+        Save
+      </button>
+    </div>
+  );
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function action({ request }) {
+  const rawData = await request.formData();
+  const data = Object.fromEntries(rawData);
+  return redirect(`/project/${data.id}`);
 }

@@ -2,11 +2,11 @@ import { useContext } from "react";
 import logo from "/images/logo.png";
 import SideBarItem from "./SideBarItem";
 import { ProjectContext } from "../../contexts/ProjectContext";
-import { Project } from "../../features/project/model/Project";
+import { useNavigate } from "react-router";
 
 export default function SideBar({ className }) {
-  const { items, selected, handleUpdateOrCreate, handleSelect } =
-    useContext(ProjectContext);
+  const { items, selected, handleSelect } = useContext(ProjectContext);
+  const navigate = useNavigate();
 
   return (
     <div className={className}>
@@ -27,7 +27,7 @@ export default function SideBar({ className }) {
         <button
           type="button"
           className="btn-primary w-full sm:w-auto py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
-          onClick={() => handleUpdateOrCreate(new Project())}
+          onClick={() => navigate("/project/new")}
         >
           <span className="inline sm:hidden">+</span>
           <span className="hidden sm:inline md:hidden">+ Add</span>
