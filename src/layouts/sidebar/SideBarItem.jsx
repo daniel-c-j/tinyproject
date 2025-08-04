@@ -24,7 +24,9 @@ export default function SideBarItem({ project }) {
     <button
       type="button"
       className={barStyle}
-      onClick={() => navigate(`/project/${project.id}`)}
+      onClick={() =>
+        projectId !== project.id && navigate(`/project/${project.id}`)
+      }
     >
       <span className="sm:hidden inline font-bold">
         {project.title.slice(0, 2)}
