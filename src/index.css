@@ -37,14 +37,14 @@
 
 @layer components {
   .sidebar {
-    @apply flex-[10%] flex-shrink-0 px-2 bg-green-900 max-h-[95vh] mt-[5vh] rounded-tr-2xl
+    @apply flex-[10%] flex-shrink-0 flex-grow-0 pl-[4.5pt] pr-[5pt] bg-green-900 max-h-[95vh] mt-[5vh] rounded-tr-2xl
     sm:flex-[15%] sm:px-4
     md:flex-[20%] md:px-6 md:mt-[7.5vh] md:max-h-[92.5vh] md:rounded-tr-2xl
     lg:px-8;
   }
 
   .modal {
-    @apply fixed top-[45%] left-[50%] -translate-[50%] w-[70%] max-w-[70%] max-h-[60%] overflow-y-auto rounded-lg transition
+    @apply fixed top-[45%] left-[50%] -translate-[50%] w-[75%] max-w-[75%] max-h-[60%] overflow-y-auto rounded-lg transition
    dark:bg-[rgb(50,50,50)] dark:text-white dark:shadow-lg dark:shadow-green-950/80 
     sm:w-[50%] sm:max-w-[50%] sm:max-h-[60%]
     md:w-[40%] md:max-w-[40%] md:max-h-[55%]

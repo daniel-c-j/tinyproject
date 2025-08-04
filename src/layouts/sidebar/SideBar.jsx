@@ -50,7 +50,7 @@ function SideBarAddButton() {
   return (
     <button
       type="button"
-      className="btn-primary w-full sm:w-auto py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
+      className="btn-primary w-full !px-3 sm:w-auto py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
       onClick={() =>
         location.pathname !== "/project/new" && navigate("/project/new")
       }
