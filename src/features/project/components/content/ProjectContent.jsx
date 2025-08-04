@@ -16,7 +16,7 @@ export default function ProjectContent() {
       <ProjectHeader project={projectData} handleDelete={handleDelete} />
 
       <ProjectDesc project={projectData} />
-      <hr className="opacity-20 border-1 my-4 border-green-800" />
+      <hr className="opacity-20 border-1 my-4 border-green-800 dark:border-green-400" />
       <ProjectTask items={items} project={projectData} update={handleUpdate} />
     </div>
   );
