@@ -97,8 +97,9 @@
     @apply text-3xl font-bold py-2 pt-4 sm:pt-6 md:pt-8;
   }
 
-  .task-list {
-    @apply w-[80%] 
+  .task-item {
+    @apply w-[80%] p-2 px-3 my-1 mr-2 rounded-md bg-gray-300 opacity-85 placeholder-black/50 hover:opacity-100 focus:opacity-100 border-green-500 focus:border-1 focus:outline-none
+    dark:[color-scheme:dark] dark:bg-gray-600 dark:placeholder-white/40
     sm:w-[75%] 
     md:w-[70%];
   }
