@@ -1,26 +1,21 @@
-import { useContext } from "react";
-import ThemeContextProvider, {
-  ThemeContext,
-} from "../../contexts/ThemeContext";
-import themeData from "../../features/theme/data/ThemeData";
 import SideBar from "../sidebar/SideBar";
 import QuickMenu from "../quickmenu/QuickMenu";
 import ThemeButton from "../../features/theme/components/ThemeButton";
-import ProjectContextProvider from "../../contexts/ProjectContext";
 import { Outlet } from "react-router";
+import { Provider, useSelector } from "react-redux";
+import store from "../../redux/store";
+import { themeData } from "../../features/theme/themeSlice";
 
 export default function BaseLayoutWrapper() {
   return (
-    <ThemeContextProvider>
-      <ProjectContextProvider>
-        <BaseLayout />
-      </ProjectContextProvider>
-    </ThemeContextProvider>
+    <Provider store={store}>
+      <BaseLayout />
+    </Provider>
   );
 }
 
 function BaseLayout() {
-  const { theme } = useContext(ThemeContext);
+  const theme = useSelector((state) => state.theme.val);
 
   return (
     <div className="base" data-theme={theme === themeData.dark && "dark"}>

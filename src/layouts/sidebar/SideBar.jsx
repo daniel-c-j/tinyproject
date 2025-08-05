@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import logo from "/images/logo.png";
 import SideBarItem from "./SideBarItem";
-import { ProjectContext } from "../../contexts/ProjectContext";
 import { useLocation, useNavigate, useNavigation } from "react-router";
+import { useSelector } from "react-redux";
 
 export default function SideBar({ className }) {
-  const { items } = useContext(ProjectContext);
+  const items = useSelector((state) => state.project.items);
 
   return (
     <div className={className}>
