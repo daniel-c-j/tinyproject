@@ -1,3 +1,5 @@
+import { NavLink } from "react-router";
+
 function optimizeTitle(title, length) {
   const words = title.split(" ");
   let tempTitle = "";
@@ -11,14 +13,25 @@ function optimizeTitle(title, length) {
   return tempTitle;
 }
 
-export default function BarItem({ item, project, onSelect }) {
-  const barStyle = item === project ? "bar-item-active" : "bar-item-idle";
+export default function SideBarItem({ project }) {
+  const destination = `/project/${project.id}`;
+
+  // * Uncomment this to prevent going to the same page.
+  // const currentLoc = useLocation();
+  // const handleClick = (e) => {
+  //   if (currentLoc.pathname === destination) {
+  //     e.preventDefault(); // Prevent navigation if already on the same page
+  //   }
+  // };
 
   return (
-    <button
-      type="button"
-      className={barStyle + " "}
-      onClick={() => onSelect(project)}
+    <NavLink
+      to={destination}
+      // * Uncomment this to prevent going to the same page.
+      // onClick={handleClick}
+      className={({ isActive }) =>
+        isActive ? "bar-item-active" : "bar-item-idle"
+      }
     >
       <span className="sm:hidden inline font-bold">
         {project.title.slice(0, 2)}
@@ -39,6 +52,6 @@ export default function BarItem({ item, project, onSelect }) {
       <span className="hidden xl:inline">
         {optimizeTitle(project.title, 26)}
       </span>
-    </button>
+    </NavLink>
   );
 }

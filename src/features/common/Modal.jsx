@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ThemeContext } from "../features/theme/context/ThemeContext";
-import themeData from "../features/theme/context/ThemeData";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import themeData from "../theme/data/ThemeData";
 
 export default function Modal({ open, children }) {
   const { theme } = useContext(ThemeContext);
@@ -10,11 +10,6 @@ export default function Modal({ open, children }) {
   // open parameter tells when the animation should execute.
   const [childAppear, setChildAppear] = useState(false);
   const dialog = useRef();
-
-  let dialogStyle = "modal";
-  if (theme === themeData.dark)
-    dialogStyle +=
-      " dark-mode shadow-lg shadow-green-950/80 border-1 border-green-900/80";
 
   useEffect(() => {
     if (open) {
@@ -33,9 +28,9 @@ export default function Modal({ open, children }) {
   return createPortal(
     <dialog
       ref={dialog}
+      data-theme={theme === themeData.dark && "dark"}
       className={
-        dialogStyle +
-        (open ? " in-slide-up-realfast" : " out-slide-down-realfast")
+        "modal" + (open ? " in-slide-up-realfast" : " out-slide-down-realfast")
       }
     >
       {childAppear ? children : null}

@@ -1,10 +1,4 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../theme/context/ThemeContext";
-import themeData from "../../theme/context/ThemeData";
-
 export default function ProjectDeletionConfirmation({ showModal, onDelete }) {
-  const { theme } = useContext(ThemeContext);
-
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold m-1">Delete this project?</h2>
@@ -14,17 +8,15 @@ export default function ProjectDeletionConfirmation({ showModal, onDelete }) {
           type="button"
           className="btn-primary-alert ml-2"
           onClick={() => {
-            onDelete();
             showModal(false);
+            onDelete();
           }}
         >
           Delete
         </button>
         <button
           type="button"
-          className={`btn-secondary ml-2 ${
-            theme === themeData.dark && "hover:!bg-white/10"
-          }`}
+          className="btn-secondary ml-2"
           onClick={() => showModal(false)}
         >
           Cancel

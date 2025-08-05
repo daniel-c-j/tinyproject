@@ -25,6 +25,8 @@
 est. read time: <strong>< 1 minute</strong>
 <br/><br/>
 
+<!-- Content -->
+
 ## About the project
 
 This is a personal project of mine that embraces simple web app development built from scratch using popular front-end frameworks such as **react** and **tailwind**.

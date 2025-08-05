@@ -1,12 +1,11 @@
-import { Project } from "../model/Project";
+import { useNavigate } from "react-router";
 import logo from "../../../assets/images/no-projects.png";
 
-export default function NoSelectedProject({ onCreateProject }) {
+export default function ProjectUnselected() {
+  const navigate = useNavigate();
+
   return (
-    <div
-      align="center"
-      className="flex flex-col h-[75vh] items-center justify-center"
-    >
+    <div className="flex flex-col h-[75vh] items-center justify-center in-slide-down-realfast">
       <img
         src={logo}
         alt="No project logo"
@@ -22,7 +21,7 @@ export default function NoSelectedProject({ onCreateProject }) {
       </p>
       <button
         type="button"
-        onClick={() => onCreateProject(new Project())}
+        onClick={() => navigate("/project/new")}
         className="btn-primary my-8"
       >
         Create new project

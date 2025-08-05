@@ -1,25 +1,8 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @layer base {
-  .base {
-    @apply flex flex-row max-w-screen max-h-screen overflow-y-clip font-[nunito-sans];
-  }
-
-  .dark-mode {
-    background-color: rgb(30, 30, 30);
-    color: white;
-  }
-
-  .body {
-    @apply flex-[90%] min-h-screen max-h-screen overflow-y-auto p-6 pt-12
-    sm:flex-[85%] sm:p-8 sm:pt-16
-    md:flex-[75%] md:p-12 md:pt-20;
-  }
-
-  .inner-body {
-    @apply w-[100%] sm:w-[95%] md:w-[90%] lg:w-[85%] xl:w-[80%];
-  }
-
   @font-face {
     font-family: "nunito-sans";
     src: url("./assets/font/nunito_sans.ttf");
@@ -31,21 +14,41 @@
     src: url("./assets/font/nunito_sans_italic.ttf");
     font-style: italic;
   }
+
+  .base {
+    @apply flex flex-row max-w-screen max-h-screen overflow-y-clip font-[nunito-sans]
+    dark:bg-[rgb(30,30,30)] dark:text-white;
+  }
+
+  .body {
+    @apply flex-[90%] min-h-screen max-h-screen overflow-y-auto p-6 pt-12
+    sm:flex-[85%] sm:p-8 sm:pt-16
+    md:flex-[80%] md:p-12 md:pt-20;
+  }
+
+  .inner-body {
+    @apply w-[100%] 
+    sm:w-[95%] 
+    md:w-[92.5%] 
+    lg:w-[87.5%] 
+    xl:w-[85%];
+  }
 }
 
 @layer components {
+  .sidebar {
+    @apply flex-[10%] flex-shrink-0 flex-grow-0 pl-[4.5pt] pr-[5pt] bg-green-900 max-h-[95vh] mt-[5vh] rounded-tr-2xl
+    sm:flex-[15%] sm:px-4
+    md:flex-[20%] md:px-6 md:mt-[7.5vh] md:max-h-[92.5vh] md:rounded-tr-2xl
+    lg:px-8;
+  }
+
   .modal {
-    @apply fixed top-[45%] left-[50%] -translate-[50%] w-[70%] max-w-[70%] max-h-[60%] overflow-y-auto rounded-lg transition
+    @apply fixed top-[45%] left-[50%] -translate-[50%] w-[75%] max-w-[75%] max-h-[60%] overflow-y-auto rounded-lg transition
+   dark:bg-[rgb(50,50,50)] dark:text-white dark:shadow-lg dark:shadow-green-950/80 
     sm:w-[50%] sm:max-w-[50%] sm:max-h-[60%]
     md:w-[40%] md:max-w-[40%] md:max-h-[55%]
     lg:w-[30%] lg:max-w-[30%] lg:max-h-[50%];
-  }
-
-  .sidebar {
-    @apply flex-[10%] flex-shrink-0 px-2 bg-green-900 max-h-[95vh] mt-[5vh] rounded-tr-2xl
-    sm:flex-[15%] sm:px-4
-    md:flex-[25%] md:px-6 md:mt-[7.5vh] md:max-h-[92.5vh] md:rounded-tr-2xl
-    lg:px-8;
   }
 
   .quick-menu {
@@ -60,40 +63,52 @@
   }
 
   .bar-item-active {
-    @apply block w-full py-1 px-2 mb-1.5 text-center rounded-md text-white transition hover:bg-green-600 active:bg-green-500 bg-green-800
+    @apply block w-full py-1 px-2 mb-1.5 text-center rounded-md text-white transition bg-green-700/70 hover:bg-green-600 active:bg-green-500
     sm:w-full sm:px-2 sm:mb-1 sm:text-left;
   }
 
   .input-field {
-    @apply p-2 my-1 rounded-md bg-gray-300 border-b-1 border-green-500 focus:border-1 focus:outline-none;
+    @apply p-2 !px-3 my-1 rounded-md text-black placeholder-black/50 bg-gray-300 border-green-500 focus:border-1 focus:outline-none
+    dark:[color-scheme:dark] dark:bg-gray-600 dark:text-white dark:placeholder-white/40;
   }
 
   .btn-primary {
-    @apply px-4 py-2 rounded-md transition 
-  text-white bg-green-800 hover:bg-green-600 active:bg-green-500;
+    @apply px-4 py-2 rounded-md transition text-white bg-green-800 hover:bg-green-600 active:bg-green-500;
   }
 
   .btn-primary-alert {
-    @apply px-4 py-2 rounded-md transition 
-  text-white bg-red-600 hover:bg-red-700 active:bg-red-500;
+    @apply px-4 py-2 rounded-md transition text-white bg-red-600 hover:bg-red-700 active:bg-red-500;
   }
 
   .btn-secondary {
-    @apply px-4 py-2 rounded-md transition 
-  text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300;
+    @apply px-4 py-2 rounded-md transition font-medium text-green-600 bg-none hover:bg-gray-200 active:bg-gray-300
+    dark:hover:bg-white/10 dark:active:bg-white/20;
   }
 
   .btn-secondary-alert {
-    @apply px-4 py-2 rounded-md transition 
-  text-red-600 bg-none hover:text-white hover:bg-red-600 active:bg-red-500;
+    @apply px-4 py-2 rounded-md transition font-medium text-red-600 hover:text-white bg-none hover:bg-red-600 active:bg-red-500;
+  }
+
+  .spinner {
+    @apply inline-block border-white border-b-transparent rounded-[50%] box-border animate-spin;
+  }
+
+  .project-title {
+    @apply text-3xl font-bold py-2 pt-4 sm:pt-6 md:pt-8;
+  }
+
+  .task-list {
+    @apply w-[80%] 
+    sm:w-[75%] 
+    md:w-[70%];
   }
 }
 
 @layer utilities {
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(175, 175, 175, 0.75) transparent;
     scrollbar-arrow-color: transparent;
+    scrollbar-color: rgba(175, 175, 175, 0.75) transparent;
   }
 
   .no-scrollbar {
@@ -109,17 +124,12 @@
   }
 
   .shadow-top {
-    box-shadow: 0 -5px 8px color-mix(in oklab, var(--color-green-900)
-          /* oklch(26.6% 0.065 152.934) = #032e15 */ 80%, transparent);
+    box-shadow: 0 -5px 8px color-mix(in oklab, var(--color-green-900) 80%, transparent);
   }
 
   .shadow-bottom {
     box-shadow: 0 5px 8px
-      color-mix(
-        in oklab,
-        var(--color-green-900) /* oklch(26.6% 0.065 152.934) = #032e15 */ 80%,
-        transparent
-      );
+      color-mix(in oklab, var(--color-green-900) 80%, transparent);
   }
 }
 

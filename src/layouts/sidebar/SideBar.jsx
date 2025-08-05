@@ -1,12 +1,11 @@
 import { useContext } from "react";
-import { ProjectContext } from "../features/project/context/ProjectContext";
-import { Project } from "../features/project/model/Project";
 import logo from "/images/logo.png";
-import BarItem from "./BarItem";
+import SideBarItem from "./SideBarItem";
+import { ProjectContext } from "../../contexts/ProjectContext";
+import { useLocation, useNavigate } from "react-router";
 
 export default function SideBar({ className }) {
-  const { items, selected, handleUpdateOrCreate, handleSelect } =
-    useContext(ProjectContext);
+  const { items } = useContext(ProjectContext);
 
   return (
     <div className={className}>
@@ -21,17 +20,10 @@ export default function SideBar({ className }) {
           width="35"
           height="35"
           draggable="false"
-          className="block w-full py-3 sm:hidden "
+          className="block w-full py-3 sm:hidden"
         />
 
-        <button
-          type="button"
-          className="btn-primary w-full sm:w-auto py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
-          onClick={() => handleUpdateOrCreate(new Project())}
-        >
-          <span className="inline sm:hidden">+</span>
-          <span className="hidden sm:inline">+ Add Project</span>
-        </button>
+        <SideBarAddButton />
       </div>
 
       <div className="max-h-[77.5vh] sm:max-h-[75vh] md:max-h-[70vh] lg:max-h-[67.5vh] pb-8 overflow-y-auto no-scrollbar">
@@ -40,18 +32,32 @@ export default function SideBar({ className }) {
         <div className="my-[17.5pt] sm:my-6"></div>
 
         {items.length > 0 &&
-          items.map((project, index) => (
-            <BarItem
-              key={index}
-              item={selected.item}
-              project={project}
-              onSelect={handleSelect}
-            />
+          items.map((project) => (
+            <SideBarItem key={project.id} project={project} />
           ))}
 
         {/* This is a shadow */}
         <div className="scroll-shadow shadow-top bottom-0"></div>
       </div>
     </div>
+  );
+}
+
+function SideBarAddButton() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  return (
+    <button
+      type="button"
+      className="btn-primary w-full !px-3 sm:w-auto py-1 md:py-2 sm:mt-4 md:mt-5 lg:mt-6"
+      onClick={() =>
+        location.pathname !== "/project/new" && navigate("/project/new")
+      }
+    >
+      <span className="inline sm:hidden">+</span>
+      <span className="hidden sm:inline md:hidden">+ Add</span>
+      <span className="hidden md:inline">+ Add Project</span>
+    </button>
   );
 }

@@ -1,44 +1,19 @@
-import { v4 as uuidv4 } from "uuid";
+import { uid } from "uid/secure";
 
 export class Project {
   constructor(
+    id = null,
     title = "",
     desc = null,
-    dateAdded = Project.getCurrentFormattedDate(),
+    dateAdded = Date.now(),
     dueDate = null,
     task = []
   ) {
-    this.id = uuidv4();
+    this.id = id || uid(8);
     this.title = title;
     this.desc = desc;
     this.dateAdded = dateAdded;
     this.dueDate = dueDate;
     this.task = task;
-  }
-
-  static getCurrentFormattedDate() {
-    const now = new Date();
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    // Get the month, day, and year
-    const month = monthNames[now.getMonth()]; // Get month name
-    const day = String(now.getDate()).padStart(2, "0"); // Get day and pad with zero if needed
-    const year = now.getFullYear(); // Get full year
-
-    // Return formatted date
-    return `${month}, ${day}, ${year}`;
   }
 }
