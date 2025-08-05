@@ -8,8 +8,8 @@ import ProjectContent, {
   loader as projectContentLoader,
 } from "../features/project/components/content/ProjectContent";
 import InnerLayout from "../layouts/root/InnerLayout";
-import ErrorPage from "./ErrorPage";
 import { action as projectContentEditAction } from "../features/project/components/content/ProjectHeader";
+import ErrorPage from "./ErrorPage";
 
 const router = createBrowserRouter([
   {

@@ -1,9 +1,6 @@
-import { Outlet } from "react-router";
+import { useOutlet } from "react-router";
 
 export default function InnerLayout() {
-  return (
-    <div className="inner-body">
-      <Outlet />
-    </div>
-  );
+  const outlet = useOutlet();
+  return <div className="inner-body">{outlet}</div>;
 }

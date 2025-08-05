@@ -4,11 +4,17 @@ import getRandomKaomoji from "../util/kaomoji";
 import { ThemeContext } from "../contexts/ThemeContext";
 import themeData from "../features/theme/data/ThemeData";
 
+function shouldRedirect(error) {
+  if (error?.redirect !== undefined) return error?.redirect;
+  if (error?.status == 404) return true;
+  return false;
+}
+
 export default function ErrorPage() {
   const { theme } = useContext(ThemeContext);
-  const error = useRouteError();
 
-  const useRedirect = error?.status == 404 || error?.redirect;
+  const error = useRouteError();
+  const useRedirect = shouldRedirect(error);
 
   return (
     <div
