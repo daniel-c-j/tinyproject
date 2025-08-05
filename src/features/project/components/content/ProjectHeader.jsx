@@ -42,6 +42,7 @@ export default function ProjectHeader({ project, handleDelete }) {
   );
 }
 
+// TODO when utilizing server-client this should be a post req.
 // eslint-disable-next-line react-refresh/only-export-components
 export async function action({ request }) {
   const formData = await request.formData();

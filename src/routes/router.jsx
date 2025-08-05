@@ -8,14 +8,14 @@ import ProjectContent, {
   loader as projectContentLoader,
 } from "../features/project/components/content/ProjectContent";
 import InnerLayout from "../layouts/root/InnerLayout";
-import NotFoundRoute from "./NotFoundRoute";
+import ErrorPage from "./ErrorPage";
 import { action as projectContentEditAction } from "../features/project/components/content/ProjectHeader";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: BaseLayoutWrapper,
-    ErrorBoundary: NotFoundRoute,
+    ErrorBoundary: ErrorPage,
     children: [
       { index: true, Component: ProjectUnselected },
       {
