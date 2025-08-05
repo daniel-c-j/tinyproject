@@ -1,4 +1,4 @@
-import { useNavigate, useRouteLoaderData } from "react-router";
+import { NavLink } from "react-router";
 
 function optimizeTitle(title, length) {
   const words = title.split(" ");
@@ -14,18 +14,23 @@ function optimizeTitle(title, length) {
 }
 
 export default function SideBarItem({ project }) {
-  const projectId = useRouteLoaderData("project-content");
-  const navigate = useNavigate();
+  const destination = `/project/${project.id}`;
 
-  const barStyle =
-    projectId === project.id ? "bar-item-active" : "bar-item-idle";
+  // * Uncomment this to prevent going to the same page.
+  // const currentLoc = useLocation();
+  // const handleClick = (e) => {
+  //   if (currentLoc.pathname === destination) {
+  //     e.preventDefault(); // Prevent navigation if already on the same page
+  //   }
+  // };
 
   return (
-    <button
-      type="button"
-      className={barStyle}
-      onClick={() =>
-        projectId !== project.id && navigate(`/project/${project.id}`)
+    <NavLink
+      to={destination}
+      // * Uncomment this to prevent going to the same page.
+      // onClick={handleClick}
+      className={({ isActive }) =>
+        isActive ? "bar-item-active" : "bar-item-idle"
       }
     >
       <span className="sm:hidden inline font-bold">
@@ -47,6 +52,6 @@ export default function SideBarItem({ project }) {
       <span className="hidden xl:inline">
         {optimizeTitle(project.title, 26)}
       </span>
-    </button>
+    </NavLink>
   );
 }

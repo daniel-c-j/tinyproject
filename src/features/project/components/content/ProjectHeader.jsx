@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "../../../common/Modal";
 import ProjectDeletionConfirmation from "../ProjectDeletionConfirmation";
 import { useNavigate } from "react-router";
+import delay from "../../../../util/delay";
 
 export default function ProjectHeader({ project, handleDelete }) {
   const [showModal, setShowModal] = useState(false);
@@ -48,5 +49,6 @@ export async function action({ request }) {
   const formData = await request.formData();
   const project = Object.fromEntries(formData);
 
+  await delay(1200);
   return project;
 }

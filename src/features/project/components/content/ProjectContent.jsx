@@ -22,8 +22,6 @@ export default function ProjectContent() {
   );
 }
 
-// TODO simulate delay-loading.
-
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader({ params }) {
   return params.projectId;

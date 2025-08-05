@@ -1,7 +1,14 @@
 import { useContext } from "react";
+import delay from "../../../util/delay";
 import { ProjectContext } from "../../../contexts/ProjectContext";
 import { Project } from "../model/Project";
-import { Form, redirect, useNavigate, useRouteLoaderData } from "react-router";
+import {
+  Form,
+  redirect,
+  useNavigate,
+  useNavigation,
+  useRouteLoaderData,
+} from "react-router";
 
 const labelStyle = "block uppercase font-semibold mt-4";
 const inputStyle = "input-field w-full";
@@ -10,6 +17,9 @@ const getEmptyProject = () => new Project();
 
 export default function ProjectForm() {
   const { items, handleSave, handleUpdate } = useContext(ProjectContext);
+
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "submitting";
 
   const projectId = useRouteLoaderData("project-content");
   const dataFromCtx = items.find((proj) => proj.id == projectId);
@@ -32,62 +42,75 @@ export default function ProjectForm() {
     <Form
       method="POST"
       onSubmit={(e) => handleSubmitClientside(e)}
-      className="in-slide-up-fast"
+      className={isLoading ? "pointer-events-none" : "in-slide-up-fast"}
     >
       <ProjectFormHeader />
 
-      {/* Hidden input so that id can be processed in action fn. */}
-      <input type="text" name="id" defaultValue={projectData.id} hidden />
+      <div className={isLoading ? "opacity-60" : undefined}>
+        {/* Hidden input so that id can be processed in action fn. */}
+        <input type="text" name="id" defaultValue={projectData.id} hidden />
 
-      <label htmlFor="title" className={labelStyle}>
-        title
-      </label>
-      <input
-        type="text"
-        name="title"
-        className={inputStyle}
-        defaultValue={projectData.title}
-        required
-        autoFocus
-      />
+        <label htmlFor="title" className={labelStyle}>
+          title
+        </label>
+        <input
+          type="text"
+          name="title"
+          className={inputStyle}
+          defaultValue={projectData.title}
+          required
+          autoFocus
+          disabled={isLoading}
+        />
 
-      <label htmlFor="desc" className={labelStyle}>
-        Description
-      </label>
-      <textarea
-        name="desc"
-        className={inputStyle + " resize-y min-h-[7.5vw]"}
-        rows="3"
-        defaultValue={projectData.desc}
-      />
+        <label htmlFor="desc" className={labelStyle}>
+          Description
+        </label>
+        <textarea
+          name="desc"
+          className={inputStyle + " resize-y min-h-[7.5vw]"}
+          rows="3"
+          defaultValue={projectData.desc}
+          disabled={isLoading}
+        />
 
-      <label htmlFor="date" className={labelStyle}>
-        Due Date
-      </label>
-      <input
-        type="date"
-        name="date"
-        className={inputStyle}
-        defaultValue={projectData.dueDate}
-      />
+        <label htmlFor="date" className={labelStyle}>
+          Due Date
+        </label>
+        <input
+          type="date"
+          name="date"
+          className={inputStyle}
+          defaultValue={projectData.dueDate}
+          disabled={isLoading}
+        />
+      </div>
     </Form>
   );
 }
 
 function ProjectFormHeader() {
+  const navigation = useNavigation();
   const navigate = useNavigate();
+
+  const isLoading = navigation.state === "submitting";
+  const loader = "spinner size-3.5 border-3 text-center mr-2 mb-0.5";
 
   return (
     <div align="right">
       <button
         type="button"
         onClick={() => navigate("/")}
-        className="btn-secondary mx-1"
+        className={"btn-secondary mx-1 " + (isLoading && "opacity-60")}
+        disabled={isLoading}
       >
         Cancel
       </button>
-      <button type="submit" className="btn-primary mx-1">
-        Save
+      <button type="submit" className="btn-primary mx-1" disabled={isLoading}>
+        <div className="flex flex-row justify-center items-center">
+          <span className={isLoading ? loader : "!hidden"}></span>
+          <p>Save</p>
+        </div>
       </button>
     </div>
   );
@@ -97,5 +120,7 @@ function ProjectFormHeader() {
 export async function action({ request }) {
   const rawData = await request.formData();
   const data = Object.fromEntries(rawData);
+
+  await delay(1200);
   return redirect(`/project/${data.id}`);
 }
