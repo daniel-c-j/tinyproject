@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigation } from "react-router";
+import { NavLink, useNavigation } from "react-router";
 
 function optimizeTitle(title, length) {
   const words = title.split(" ");
