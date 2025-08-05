@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createHashRouter } from "react-router";
 import BaseLayoutWrapper from "../layouts/root/BaseLayout";
 import ProjectUnselected from "../features/project/components/ProjectUnselected";
 import ProjectForm, {
@@ -11,7 +11,7 @@ import InnerLayout from "../layouts/root/InnerLayout";
 import { action as projectContentEditAction } from "../features/project/components/content/ProjectHeader";
 import ErrorPage from "./ErrorPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     Component: BaseLayoutWrapper,
