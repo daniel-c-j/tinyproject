@@ -14,10 +14,13 @@
 <div align="center">
     <img src="https://img.shields.io/badge/reactjs-404040?logo=react"
     alt="react" />
+    <img src="https://img.shields.io/badge/redux-606060?logo=redux"
+    alt="redux" />
+    <img src="https://img.shields.io/badge/router-303030?logo=react-router"
+    alt="react-router" />
     <img src="https://img.shields.io/badge/tailwindcss-02569B?logo=tailwindcss"
     alt="tailwind" />
     <img src="https://img.shields.io/github/license/daniel-c-j/tinyproject" alt="license">
-
 </div>
 
 <!-- Est. read time -->
@@ -35,19 +38,14 @@ This is a personal project of mine that embraces simple web app development buil
 
 ### Technical aspect
 
-React concepts:
-
-- Hooks (useState, useReducer, useEffect)
-- Context
-- Portal
-
 General web tech concepts:
 
 - Clean architecture
 - Responsive design
 - Light & dark theme
+- Routing
+- State management
 - Local storage
-- Debouncing
 
 ## License
 
