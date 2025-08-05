@@ -1,4 +1,4 @@
-import { createHashRouter } from "react-router";
+import { createBrowserRouter, createHashRouter } from "react-router";
 import BaseLayoutWrapper from "../layouts/root/BaseLayout";
 import ProjectUnselected from "../features/project/components/ProjectUnselected";
 import ProjectForm, {
@@ -11,7 +11,7 @@ import InnerLayout from "../layouts/root/InnerLayout";
 import { action as projectContentEditAction } from "../features/project/components/content/ProjectHeader";
 import ErrorPage from "./ErrorPage";
 
-const router = createHashRouter([
+const routes = [
   {
     path: "/",
     Component: BaseLayoutWrapper,
@@ -49,6 +49,15 @@ const router = createHashRouter([
       },
     ],
   },
-]);
+];
+
+// * Since this project will be hosted in github static pages,
+// * which does not support browser route (local supports it),
+// * then there is a need to check the environment the project is
+// * running in.
+const router =
+  import.meta.env.DEV === true
+    ? createBrowserRouter(routes)
+    : createHashRouter(routes);
 
 export default router;
