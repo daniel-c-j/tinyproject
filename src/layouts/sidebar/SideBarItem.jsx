@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, useLocation, useNavigation } from "react-router";
 
 function optimizeTitle(title, length) {
   const words = title.split(" ");
@@ -16,19 +16,17 @@ function optimizeTitle(title, length) {
 export default function SideBarItem({ project }) {
   const destination = `/project/${project.id}`;
 
-  // * Uncomment this to prevent going to the same page.
-  // const currentLoc = useLocation();
-  // const handleClick = (e) => {
-  //   if (currentLoc.pathname === destination) {
-  //     e.preventDefault(); // Prevent navigation if already on the same page
-  //   }
-  // };
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "submitting";
+
+  const handleClick = (e) => {
+    if (isLoading) e.preventDefault();
+  };
 
   return (
     <NavLink
       to={destination}
-      // * Uncomment this to prevent going to the same page.
-      // onClick={handleClick}
+      onClick={handleClick}
       className={({ isActive }) =>
         isActive ? "bar-item-active" : "bar-item-idle"
       }

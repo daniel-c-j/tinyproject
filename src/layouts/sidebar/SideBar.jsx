@@ -2,7 +2,7 @@ import { useContext } from "react";
 import logo from "/images/logo.png";
 import SideBarItem from "./SideBarItem";
 import { ProjectContext } from "../../contexts/ProjectContext";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useNavigation } from "react-router";
 
 export default function SideBar({ className }) {
   const { items } = useContext(ProjectContext);
@@ -44,6 +44,9 @@ export default function SideBar({ className }) {
 }
 
 function SideBarAddButton() {
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "submitting";
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -54,6 +57,7 @@ function SideBarAddButton() {
       onClick={() =>
         location.pathname !== "/project/new" && navigate("/project/new")
       }
+      disabled={isLoading}
     >
       <span className="inline sm:hidden">+</span>
       <span className="hidden sm:inline md:hidden">+ Add</span>
