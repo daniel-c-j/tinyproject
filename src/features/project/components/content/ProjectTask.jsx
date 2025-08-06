@@ -8,9 +8,11 @@ import ProjectTaskItem from "./ProjectTaskItem";
 export default function ProjectTask({ project }) {
   const dispatch = useDispatch();
 
-  // To delete unprocessed text whenever changing the project.
+  // ? To reset volatile data whenever changing the project.
+  const taskFocusIndicator = useRef("");
   const input = useRef();
   useEffect(() => {
+    taskFocusIndicator.current = "";
     input.current.value = "";
   }, [project]);
 
@@ -34,6 +36,7 @@ export default function ProjectTask({ project }) {
       if (editedTask) editedTask.value = value;
 
       dispatch(projectUpdate({ ...project, task: tasks }));
+      taskFocusIndicator.current = task.id;
     },
     [project, dispatch]
   );
@@ -70,10 +73,10 @@ export default function ProjectTask({ project }) {
           project.task.map((task) => (
             <ProjectTaskItem
               key={task.id}
-              projectId={project.id}
               task={task}
               onEdit={handleEdit}
               onRemove={handleRemoveTask}
+              isFocus={taskFocusIndicator.current === task.id}
             />
           ))
         ) : (

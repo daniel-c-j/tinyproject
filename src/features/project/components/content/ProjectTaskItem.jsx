@@ -1,33 +1,27 @@
-/* eslint-disable react-refresh/only-export-components */
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 
-let focusIndicator = { id: null, value: "" };
-export { focusIndicator };
-
-export default function ProjectTaskItem({ projectId, task, onEdit, onRemove }) {
+export default function ProjectTaskItem({ isFocus, task, onEdit, onRemove }) {
   const [inputValue, setInputValue] = useState("");
 
   const input = useRef();
-  focusIndicator.id = projectId;
+  useEffect(() => {
+    if (isFocus) input.current.focus();
+  });
 
   // * Debouncer cannon
   const [debouncedValue, setDebouncedValue] = useState(inputValue);
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedValue(inputValue), 500);
 
-    return () => {
-      clearTimeout(handler);
-      if (focusIndicator.id !== projectId) focusIndicator.value = "";
-    };
-  }, [inputValue, projectId]);
+    return () => clearTimeout(handler);
+  }, [inputValue]);
 
   // * Operation that is debounced.
   useEffect(() => {
     if (debouncedValue) onEdit(task, inputValue);
-    if (input.current.value === focusIndicator.value) input.current.focus();
-  }, [debouncedValue, onEdit, inputValue, task, projectId]);
+  }, [debouncedValue, onEdit, inputValue, task]);
 
   return (
     <div className="block">
@@ -36,10 +30,7 @@ export default function ProjectTaskItem({ projectId, task, onEdit, onRemove }) {
         type="text"
         name="task"
         defaultValue={task.value}
-        onChange={(e) => {
-          focusIndicator.value = e.target.value;
-          setInputValue(e.target.value);
-        }}
+        onChange={(e) => setInputValue(e.target.value)}
         className="task-item"
       />
       <button

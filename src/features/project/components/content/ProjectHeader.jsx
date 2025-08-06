@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import delay from "../../../../util/delay";
 import { useDispatch } from "react-redux";
 import { projectDelete } from "../../projectSlice";
-import { focusIndicator } from "./ProjectTaskItem";
 
 export default function ProjectHeader({ project }) {
   const [showModal, setShowModal] = useState(false);
@@ -38,10 +37,7 @@ export default function ProjectHeader({ project }) {
         <button
           type="submit"
           className="btn-primary mx-1"
-          onClick={() => {
-            focusIndicator.id = "";
-            navigate("edit");
-          }}
+          onClick={() => navigate("edit")}
         >
           Edit
         </button>
