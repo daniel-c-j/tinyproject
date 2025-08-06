@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import delay from "../../../util/delay";
-import { ProjectContext } from "../../../contexts/ProjectContext";
-import { Project } from "../model/Project";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Form,
   redirect,
@@ -9,14 +7,26 @@ import {
   useNavigation,
   useRouteLoaderData,
 } from "react-router";
+import { projectAdd, projectUpdate } from "../projectSlice";
+import { uid } from "uid";
 
 const labelStyle = "block uppercase font-semibold mt-4";
 const inputStyle = "input-field w-full";
 
-const getEmptyProject = () => new Project();
+const getEmptyProject = () => {
+  return {
+    id: uid(8),
+    title: "",
+    desc: null,
+    dateAdded: Date.now(),
+    dueDate: null,
+    task: [],
+  };
+};
 
 export default function ProjectForm() {
-  const { items, handleSave, handleUpdate } = useContext(ProjectContext);
+  const items = useSelector((state) => state.project.items);
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
   const isLoading = navigation.state === "submitting";
@@ -25,17 +35,19 @@ export default function ProjectForm() {
   const dataFromCtx = items.find((proj) => proj.id == projectId);
   const projectData = dataFromCtx || getEmptyProject();
 
-  const isNew = dataFromCtx === undefined;
-
   // Focus on data that is change-able in this scope.
   const handleSubmitClientside = (event) => {
     const formData = new FormData(event.target);
-    projectData.title = formData.get("title");
-    projectData.desc = formData.get("desc");
-    projectData.dueDate = formData.get("date");
+    const projectDt = {
+      ...projectData,
+      title: formData.get("title"),
+      desc: formData.get("desc"),
+      dueDate: formData.get("date"),
+    };
 
-    if (isNew) return handleSave(projectData);
-    return handleUpdate(projectData);
+    // If new
+    if (dataFromCtx == undefined) return dispatch(projectAdd(projectDt));
+    return dispatch(projectUpdate(projectDt));
   };
 
   return (

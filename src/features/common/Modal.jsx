@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ThemeContext } from "../../contexts/ThemeContext";
-import themeData from "../theme/data/ThemeData";
+import { useSelector } from "react-redux";
+import { themeData } from "../theme/themeSlice";
 
 export default function Modal({ open, children }) {
-  const { theme } = useContext(ThemeContext);
+  const theme = useSelector((state) => state.theme.val);
 
   // This hook tells the children when should appear, meanwhile the
   // open parameter tells when the animation should execute.

@@ -3,15 +3,18 @@ import Modal from "../../../common/Modal";
 import ProjectDeletionConfirmation from "../ProjectDeletionConfirmation";
 import { useNavigate } from "react-router";
 import delay from "../../../../util/delay";
+import { useDispatch } from "react-redux";
+import { projectDelete } from "../../projectSlice";
 
-export default function ProjectHeader({ project, handleDelete }) {
+export default function ProjectHeader({ project }) {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function onDelete(project) {
     navigate("/");
     // * Timeout to prevent concurrent render conflict
-    setTimeout(() => handleDelete(project), 400);
+    setTimeout(() => dispatch(projectDelete(project)), 400);
   }
 
   return (

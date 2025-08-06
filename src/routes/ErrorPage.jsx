@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useRouteError } from "react-router";
 import getRandomKaomoji from "../util/kaomoji";
-import { ThemeContext } from "../contexts/ThemeContext";
-import themeData from "../features/theme/data/ThemeData";
+import { useSelector } from "react-redux";
+import { themeData } from "../features/theme/themeSlice";
 
 function shouldRedirect(error) {
   if (error?.redirect !== undefined) return error?.redirect;
@@ -11,7 +11,7 @@ function shouldRedirect(error) {
 }
 
 export default function ErrorPage() {
-  const { theme } = useContext(ThemeContext);
+  const theme = useSelector((state) => state.theme.val);
 
   const error = useRouteError();
   const useRedirect = shouldRedirect(error);
@@ -46,7 +46,7 @@ function RedirectRouteFeedback() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/");
-    }, 3000);
+    }, 2500);
     return () => clearTimeout(timer);
   });
 

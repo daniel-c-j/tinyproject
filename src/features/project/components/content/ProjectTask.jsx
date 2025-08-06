@@ -1,27 +1,45 @@
 import { useEffect, useRef } from "react";
 import { uid } from "uid/secure";
-import ProjectStorage from "../../data/ProjectStorage";
+import { useDispatch } from "react-redux";
+import { projectUpdate } from "../../projectSlice";
+import { useCallback } from "react";
+import ProjectTaskItem from "./ProjectTaskItem";
 
-export default function ProjectTask({ items, project, update }) {
-  const inputStyle =
-    "input-field mr-2 task-list opacity-85 hover:!opacity-100 focus:!opacity-100";
+export default function ProjectTask({ project }) {
+  const dispatch = useDispatch();
 
-  // To delete unprocessed text whenever changing the project.
+  // ? To reset volatile data whenever changing the project.
+  const taskFocusIndicator = useRef("");
   const input = useRef();
   useEffect(() => {
+    taskFocusIndicator.current = "";
     input.current.value = "";
   }, [project]);
 
-  function handleAddTask(newTask) {
+  function handleAddTask() {
+    const newTask = { id: uid(8), value: input.current.value };
+    const tasks = [newTask, ...(project.task ?? [])];
+    dispatch(projectUpdate({ ...project, task: tasks }));
+
     input.current.value = "";
-    project.task = [newTask, ...(project.task ?? [])];
-    update(project);
   }
 
   function handleRemoveTask(delTask) {
-    project.task = project.task.filter((task) => task.id !== delTask.id);
-    update(project);
+    const tasks = project.task.filter((task) => task.id !== delTask.id);
+    dispatch(projectUpdate({ ...project, task: tasks }));
   }
+
+  const handleEdit = useCallback(
+    (task, value) => {
+      const tasks = JSON.parse(JSON.stringify(project.task));
+      const editedTask = tasks.find((t) => t.id === task.id);
+      if (editedTask) editedTask.value = value;
+
+      dispatch(projectUpdate({ ...project, task: tasks }));
+      taskFocusIndicator.current = task.id;
+    },
+    [project, dispatch]
+  );
 
   return (
     <>
@@ -31,15 +49,18 @@ export default function ProjectTask({ items, project, update }) {
           type="text"
           ref={input}
           name="task"
-          className={inputStyle + " italic"}
+          className="task-item italic"
           placeholder="what should be done...?"
+          onKeyDown={(e) => {
+            if (e.key !== "Enter") return;
+            e.preventDefault();
+            handleAddTask();
+          }}
         />
         <button
           type="button"
           className="btn-secondary font-bold sm:font-normal"
-          onClick={() =>
-            handleAddTask({ id: uid(12), value: input.current.value })
-          }
+          onClick={() => handleAddTask()}
         >
           <span className="inline sm:hidden">+</span>
           <span className="hidden sm:inline">Add</span>
@@ -47,29 +68,16 @@ export default function ProjectTask({ items, project, update }) {
       </div>
 
       {/* To immediately update UI, utilizing dynamic key.*/}
-      <div key={uid(12)} className="pb-8">
+      <div key={uid(4)} className="pb-8">
         {project.task.length > 0 ? (
-          project.task.map((projectTask, index) => (
-            <div key={index} className="block">
-              <input
-                type="text"
-                name="task"
-                defaultValue={projectTask.value}
-                onChange={(e) => {
-                  projectTask.value = e.target.value;
-                  ProjectStorage.store(items);
-                }}
-                className={inputStyle}
-              />
-              <button
-                type="button"
-                className="btn-secondary-alert font-bold sm:font-normal"
-                onClick={() => handleRemoveTask(projectTask)}
-              >
-                <span className="inline sm:hidden">-</span>
-                <span className="hidden sm:inline">Remove</span>
-              </button>
-            </div>
+          project.task.map((task) => (
+            <ProjectTaskItem
+              key={task.id}
+              task={task}
+              onEdit={handleEdit}
+              onRemove={handleRemoveTask}
+              isFocus={taskFocusIndicator.current === task.id}
+            />
           ))
         ) : (
           <p>This project does not have any tasks yet.</p>
