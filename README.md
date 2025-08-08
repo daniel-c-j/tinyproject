@@ -47,6 +47,8 @@ General web tech concepts:
 - State management
 - Local storage
 
+🍀 Upcoming next: Authentication 🍪
+
 ## License
 
 Distributed under terms of the [MIT License](./LICENSE).
