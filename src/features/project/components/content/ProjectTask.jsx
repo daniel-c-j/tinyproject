@@ -52,9 +52,10 @@ export default function ProjectTask({ project }) {
           className="task-item italic"
           placeholder="what should be done...?"
           onKeyDown={(e) => {
-            if (e.key !== "Enter") return;
-            e.preventDefault();
-            handleAddTask();
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleAddTask();
+            }
           }}
         />
         <button

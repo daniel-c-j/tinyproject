@@ -12,9 +12,9 @@ export default function ProjectTaskItem({ isFocus, task, onEdit, onRemove }) {
 
   // * Debouncer cannon
   const [debouncedValue, setDebouncedValue] = useState(inputValue);
+
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedValue(inputValue), 500);
-
     return () => clearTimeout(handler);
   }, [inputValue]);
 

@@ -8,10 +8,8 @@ export default function ProjectUnselected() {
     <div className="flex flex-col h-[75vh] items-center justify-center in-slide-down-realfast">
       <img
         src={logo}
-        alt="No project logo"
-        className="opacity-75"
-        width="100"
-        height="100"
+        alt="No project selected logo"
+        className="opacity-75 size-[80px] sm:size-[90px] md:size-[100px]"
         draggable="false"
       />
 
