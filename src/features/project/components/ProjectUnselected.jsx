@@ -8,15 +8,15 @@ export default function ProjectUnselected() {
     <div className="flex flex-col h-[75vh] items-center justify-center in-slide-down-realfast">
       <img
         src={logo}
-        alt="No project logo"
-        className="opacity-75"
-        width="100"
-        height="100"
+        alt="No project selected logo"
+        className="opacity-75 size-[80px] sm:size-[90px] md:size-[100px]"
         draggable="false"
       />
 
-      <h2 className="text-2xl p-2 font-bold">No Project Selected</h2>
-      <p className="text-gray-500">
+      <h2 className="text-2xl p-2 font-bold text-center">
+        No Project Selected
+      </h2>
+      <p className="text-gray-500 text-center">
         Select a project or get started with a new one
       </p>
       <button

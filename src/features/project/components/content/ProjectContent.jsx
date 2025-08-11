@@ -10,6 +10,8 @@ export default function ProjectContent() {
   const projectId = useRouteLoaderData("project-content");
   const projectData = items.find((proj) => proj.id == projectId);
 
+  if (projectData === undefined) throw { status: 404, redirect: true };
+
   return (
     <div className="in-slide-down-realfast">
       <ProjectHeader project={projectData} />

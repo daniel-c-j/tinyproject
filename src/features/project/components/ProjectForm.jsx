@@ -8,21 +8,10 @@ import {
   useRouteLoaderData,
 } from "react-router";
 import { projectAdd, projectUpdate } from "../projectSlice";
-import { uid } from "uid";
+import getEmptyProject from "../model/project";
 
 const labelStyle = "block uppercase font-semibold mt-4";
 const inputStyle = "input-field w-full";
-
-const getEmptyProject = () => {
-  return {
-    id: uid(8),
-    title: "",
-    desc: null,
-    dateAdded: Date.now(),
-    dueDate: null,
-    task: [],
-  };
-};
 
 export default function ProjectForm() {
   const items = useSelector((state) => state.project.items);
@@ -106,21 +95,24 @@ function ProjectFormHeader() {
   const navigate = useNavigate();
 
   const isLoading = navigation.state === "submitting";
-  const loader = "spinner size-3.5 border-3 text-center mr-2 mb-0.5";
 
   return (
     <div align="right">
       <button
         type="button"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("..")}
         className={"btn-secondary mx-1 " + (isLoading && "opacity-60")}
         disabled={isLoading}
       >
         Cancel
       </button>
+
       <button type="submit" className="btn-primary mx-1" disabled={isLoading}>
         <div className="flex flex-row justify-center items-center">
-          <span className={isLoading ? loader : "!hidden"}></span>
+          {isLoading && (
+            <span className="spinner size-3.5 border-3 text-center mr-2 mb-0.5"></span>
+          )}
+
           <p>Save</p>
         </div>
       </button>

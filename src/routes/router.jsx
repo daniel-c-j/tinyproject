@@ -1,15 +1,17 @@
 import { createBrowserRouter, createHashRouter } from "react-router";
 import BaseLayoutWrapper from "../layouts/root/BaseLayout";
 import ProjectUnselected from "../features/project/components/ProjectUnselected";
-import ProjectForm, {
-  action as projectFormAction,
-} from "../features/project/components/ProjectForm";
 import ProjectContent, {
   loader as projectContentLoader,
 } from "../features/project/components/content/ProjectContent";
 import InnerLayout from "../layouts/root/InnerLayout";
-import { action as projectContentEditAction } from "../features/project/components/content/ProjectHeader";
 import ErrorPage from "./ErrorPage";
+import { lazy } from "react";
+import ProjectFormLazyLoaded from "../features/project/components/ProjectFormLazyLoaded.jsx";
+
+const ProjectForm = lazy(() =>
+  import("../features/project/components/ProjectForm.jsx")
+);
 
 const routes = [
   {
@@ -31,19 +33,34 @@ const routes = [
               {
                 index: true,
                 Component: ProjectContent,
-                action: projectContentEditAction,
+                action: async (meta) => {
+                  const { action } = await import(
+                    "../features/project/components/content/ProjectHeader.jsx"
+                  );
+                  return await action(meta);
+                },
               },
               {
                 path: "edit",
-                Component: ProjectForm,
-                action: projectFormAction,
+                Component: () => ProjectFormLazyLoaded(<ProjectForm />),
+                action: async (meta) => {
+                  const { action } = await import(
+                    "../features/project/components/ProjectForm.jsx"
+                  );
+                  return await action(meta);
+                },
               },
             ],
           },
           {
             path: "project/new",
-            Component: ProjectForm,
-            action: projectFormAction,
+            Component: () => ProjectFormLazyLoaded(<ProjectForm />),
+            action: async (meta) => {
+              const { action } = await import(
+                "../features/project/components/ProjectForm.jsx"
+              );
+              return await action(meta);
+            },
           },
         ],
       },
