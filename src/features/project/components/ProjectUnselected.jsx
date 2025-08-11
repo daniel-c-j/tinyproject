@@ -15,8 +15,10 @@ export default function ProjectUnselected() {
         draggable="false"
       />
 
-      <h2 className="text-2xl p-2 font-bold">No Project Selected</h2>
-      <p className="text-gray-500">
+      <h2 className="text-2xl p-2 font-bold text-center">
+        No Project Selected
+      </h2>
+      <p className="text-gray-500 text-center">
         Select a project or get started with a new one
       </p>
       <button
