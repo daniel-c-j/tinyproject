@@ -6,6 +6,9 @@ export default defineConfig(({ mode }) => {
   return {
     base: (mode === "dev") ? undefined : '/tinyproject/',
     plugins: [react(), tailwindcss()],
+    test: {
+      environment: 'happy-dom',
+    }
   }
 })
 
