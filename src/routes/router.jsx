@@ -1,4 +1,8 @@
-import { createBrowserRouter, createHashRouter } from "react-router";
+import {
+  createBrowserRouter,
+  createHashRouter,
+  createMemoryRouter,
+} from "react-router";
 import BaseLayoutWrapper from "../layouts/root/BaseLayout";
 import ProjectUnselected from "../features/project/components/ProjectUnselected";
 import ProjectContent, {
@@ -72,9 +76,10 @@ const routes = [
 // * which does not support browser route (local supports it),
 // * then there is a need to check the environment the project is
 // * running in.
-const router =
-  import.meta.env.DEV === true
-    ? createBrowserRouter(routes)
-    : createHashRouter(routes);
+const router = import.meta.env.DEV
+  ? createBrowserRouter(routes)
+  : import.meta.env.TEST
+  ? createMemoryRouter(routes)
+  : createHashRouter(routes);
 
 export default router;

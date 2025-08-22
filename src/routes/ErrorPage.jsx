@@ -10,11 +10,11 @@ function shouldRedirect(error) {
   return false;
 }
 
-export default function ErrorPage() {
+export default function ErrorPage({ forceRedirect }) {
   const theme = useSelector((state) => state.theme.val);
 
   const error = useRouteError();
-  const useRedirect = shouldRedirect(error);
+  const useRedirect = forceRedirect || shouldRedirect(error);
 
   return (
     <div
@@ -22,11 +22,14 @@ export default function ErrorPage() {
       data-theme={theme === themeData.dark && "dark"}
     >
       <div className="absolute left-[50%] top-[50%] -translate-[50%]">
-        <h2 className="text-5xl sm:text-6xl font-medium pb-12">
+        <h2
+          data-testid="kaomoji"
+          className="text-5xl sm:text-6xl font-medium pb-12"
+        >
           {getRandomKaomoji()}
         </h2>
 
-        <h2 className="text-2xl sm:text-3xl font-bold">
+        <h2 data-testid="err-title" className="text-2xl sm:text-3xl font-bold">
           {"Error " + (error?.status || "")}
         </h2>
 
@@ -51,7 +54,10 @@ function RedirectRouteFeedback() {
   });
 
   return (
-    <div className="flex flex-row justify-center items-center m-2">
+    <div
+      data-testid="redirect-feedback"
+      className="flex flex-row justify-center items-center m-2"
+    >
       <p className="mx-3 italic opacity-80">Redirecting to the home page...</p>
       <p className="text-lg sm:text-xl animate-spin">🍌</p>
     </div>

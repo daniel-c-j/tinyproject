@@ -14,7 +14,7 @@ export default function BaseLayoutWrapper() {
   );
 }
 
-function BaseLayout() {
+export function BaseLayout() {
   const theme = useSelector((state) => state.theme.val);
 
   return (
