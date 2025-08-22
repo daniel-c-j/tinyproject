@@ -19,7 +19,7 @@ export default function Modal({ open, children }) {
 
     const delay = setTimeout(() => {
       setChildAppear(false);
-      dialog.current.close();
+      if (!import.meta.env.TEST) dialog.current.close();
     }, 300);
 
     return () => clearTimeout(delay);

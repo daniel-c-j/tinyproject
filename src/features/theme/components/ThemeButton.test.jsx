@@ -5,6 +5,10 @@ import { it } from "vitest";
 import ThemeButton from "./ThemeButton";
 import { expect } from "vitest";
 import userEvent from "@testing-library/user-event";
+import { afterEach } from "vitest";
+import { cleanup } from "@testing-library/react";
+
+afterEach(() => cleanup());
 
 it(`Renders initial: Moon icon`, async () => {
   render(
@@ -13,7 +17,7 @@ it(`Renders initial: Moon icon`, async () => {
     </Provider>
   );
 
-  const btn = screen.queryByTestId("theme-btn");
+  const btn = screen.queryByTestId("light");
   expect(btn).not.toBeNull();
 
   const logo = screen.getByRole("img");
@@ -27,7 +31,7 @@ it(`Renders initial: Moon icon; After tap: Sun icon`, async () => {
     </Provider>
   );
 
-  const btn = screen.queryByTestId("theme-btn");
+  const btn = screen.queryByTestId("light");
   expect(btn).not.toBeNull();
 
   const logo = screen.getByRole("img");

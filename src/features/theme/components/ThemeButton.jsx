@@ -17,7 +17,7 @@ export default function ThemeButton() {
     <button
       className="p-1 transition rounded-md hover:bg-green-600/50 active:bg-green-500/50"
       type="button"
-      data-testid="theme-btn"
+      data-testid={theme}
       onClick={onClick}
     >
       <img

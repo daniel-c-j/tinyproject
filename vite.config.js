@@ -8,6 +8,15 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), tailwindcss()],
     test: {
       environment: 'jsdom',
+      coverage: {
+        exclude: [
+          "src/util/**",
+          "src/main.jsx",
+          "src/App.jsx",
+          "dist/assets/**",
+          "**.config.js"
+        ]
+      }
     }
   }
 })

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export default function SideBar({ className }) {
   return (
-    <div className={className}>
+    <div className={className} data-testid="sidebar">
       <div className="sm:pt-6 md:pt-8 lg:pt-10 pb-4 sm:pb-4.5 md:pb-5">
         <h1 className="hidden sm:block uppercase text-gray-100 text-xl font-bold">
           Your projects

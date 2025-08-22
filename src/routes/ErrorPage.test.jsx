@@ -4,6 +4,7 @@ import store from "../redux/store";
 import { Provider } from "react-redux";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import ErrorPage from "./ErrorPage";
+import delay from "../util/delay";
 
 const renderScreen = (router) =>
   render(
@@ -68,7 +69,7 @@ describe("ErrorPage", () => {
     expect(redirectFeedback).not.toBeNull();
 
     // * Wait 2.5s
-    await new Promise((resolve) => setTimeout(resolve, 2500));
+    await delay(2500);
 
     const home = await screen.findByTestId("home");
     expect(home).not.toBeNull();
