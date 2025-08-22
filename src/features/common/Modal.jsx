@@ -14,7 +14,7 @@ export default function Modal({ open, children }) {
   useEffect(() => {
     if (open) {
       setChildAppear(true);
-      return dialog.current.showModal();
+      if (!import.meta.env.TEST) return dialog.current.showModal();
     }
 
     const delay = setTimeout(() => {
