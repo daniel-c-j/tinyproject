@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { createMemoryRouter, RouterProvider } from "react-router";
+import { createMemoryRouter, RouterProvider, type DataRouter } from "react-router";
 import { it } from "vitest";
 import store from "../../redux/store";
 import { expect } from "vitest";
@@ -8,7 +8,7 @@ import { afterEach } from "vitest";
 import { cleanup } from "@testing-library/react";
 import BaseLayout from "./BaseLayout";
 
-const renderScreen = (router) =>
+const renderScreen = (router: DataRouter) =>
   render(
     <Provider store={store}>
       <RouterProvider router={router} />

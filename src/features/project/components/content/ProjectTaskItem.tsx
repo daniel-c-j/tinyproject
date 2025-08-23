@@ -1,13 +1,18 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import type { TaskItem } from "../../model/project";
 
-export default function ProjectTaskItem({ isFocus, task, onEdit, onRemove }) {
+interface ProjectTaskItemProps {
+  isFocus: boolean, task: TaskItem, onEdit: (task: TaskItem, value: string) => void, onRemove: (delTask: TaskItem) => void
+}
+
+export default function ProjectTaskItem({ isFocus, task, onEdit, onRemove }: ProjectTaskItemProps) {
   const [inputValue, setInputValue] = useState("");
 
-  const input = useRef();
+  const input = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    if (isFocus) input.current.focus();
+    if (isFocus && input.current !== null) input.current.focus();
   });
 
   // * Debouncer cannon

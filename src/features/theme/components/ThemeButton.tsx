@@ -1,15 +1,14 @@
 import dark from "../../../assets/images/dark.png";
 import light from "../../../assets/images/light.png";
-import { useDispatch, useSelector } from "react-redux";
-import { setThemeTo, themeData } from "../themeSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { currentTheme, setThemeTo } from "../themeSlice";
 
 export default function ThemeButton() {
-  const theme = useSelector((state) => state.theme.val);
-  const dispatch = useDispatch();
+  const theme = useAppSelector(currentTheme);
+  const dispatch = useAppDispatch();
 
   function onClick() {
-    const themeToggleVal =
-      theme == themeData.light ? themeData.dark : themeData.light;
+    const themeToggleVal = theme === "light" ? "dark" : "light";
     dispatch(setThemeTo(themeToggleVal));
   }
 
@@ -21,7 +20,7 @@ export default function ThemeButton() {
       onClick={onClick}
     >
       <img
-        src={theme === themeData.light ? dark : light}
+        src={theme === "light" ? dark : light}
         alt="Theme icon"
         width="25"
         height="25"

@@ -1,6 +1,7 @@
 import { NavLink, useNavigation } from "react-router";
+import type { Project } from "../../features/project/model/project";
 
-function optimizeTitle(title, length) {
+function optimizeTitle(title: string, length: number) {
   const words = title.split(" ");
   let tempTitle = "";
   for (const word of words) {
@@ -13,13 +14,13 @@ function optimizeTitle(title, length) {
   return tempTitle;
 }
 
-export default function SideBarItem({ project }) {
+export default function SideBarItem({ project }: { project: Project }) {
   const destination = `/project/${project.id}`;
 
   const navigation = useNavigation();
   const isLoading = navigation.state === "submitting";
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent) => {
     if (isLoading) e.preventDefault();
   };
 

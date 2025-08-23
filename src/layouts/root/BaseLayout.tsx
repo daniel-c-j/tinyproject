@@ -2,9 +2,10 @@ import SideBar from "../sidebar/SideBar";
 import QuickMenu from "../quickmenu/QuickMenu";
 import ThemeButton from "../../features/theme/components/ThemeButton";
 import { Outlet } from "react-router";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import store from "../../redux/store";
-import { themeData } from "../../features/theme/themeSlice";
+import { currentTheme } from "../../features/theme/themeSlice";
+import { useAppSelector } from "../../redux/hook";
 
 export default function BaseLayoutWrapper() {
   return (
@@ -15,10 +16,10 @@ export default function BaseLayoutWrapper() {
 }
 
 export function BaseLayout() {
-  const theme = useSelector((state) => state.theme.val);
+  const theme = useAppSelector(currentTheme);
 
   return (
-    <div className="base" data-theme={theme === themeData.dark && "dark"}>
+    <div className="base" data-theme={theme}>
       <SideBar className="sidebar in-slide-right-slow" />
 
       <div className="body in-slide-up">

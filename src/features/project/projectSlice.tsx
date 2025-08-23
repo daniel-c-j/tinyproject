@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { Project } from "./model/project";
+import type { RootState } from "../../redux/store";
+
 
 const initialState: { items: Project[] } = { items: [] };
 
@@ -27,10 +29,14 @@ const projectSlice = createSlice({
         (project) => project.id !== action.payload.id
       );
     },
+
   },
+
 });
+
 
 export const { projectAdd, projectUpdate, projectDelete } =
   projectSlice.actions;
+export const projectItems = (state: RootState) => state.project.items;
 
 export default projectSlice.reducer;

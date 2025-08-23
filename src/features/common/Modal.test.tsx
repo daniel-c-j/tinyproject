@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import store from "../../redux/store";
 
 // * Necessary logic for createPortal()
-let portalRoot;
+let portalRoot: HTMLDivElement | null;
 beforeEach(() => {
   portalRoot = document.createElement("div");
   portalRoot.setAttribute("id", "modal");
@@ -14,7 +14,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  portalRoot.remove();
+  portalRoot?.remove();
   portalRoot = null;
 });
 // * Necessary logic for createPortal()

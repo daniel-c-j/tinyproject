@@ -1,6 +1,6 @@
-import { Suspense } from "react";
+import { Suspense, type ReactNode } from "react";
 
-export default function ProjectFormLazyLoaded(component) {
+export default function ProjectFormLazyLoaded(component: ReactNode) {
   const fallback = (
     <div className="h-[75vh] flex flex-col items-start justify-start">
       <p>Loading data...</p>

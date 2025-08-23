@@ -1,41 +1,48 @@
 import { useEffect, useRef } from "react";
 import { uid } from "uid/secure";
-import { useDispatch } from "react-redux";
 import { projectUpdate } from "../../projectSlice";
 import { useCallback } from "react";
 import ProjectTaskItem from "./ProjectTaskItem";
+import { useAppDispatch } from "../../../../redux/hook";
+import { Project, TaskItem } from "../../model/project";
 
-export default function ProjectTask({ project }) {
-  const dispatch = useDispatch();
+export default function ProjectTask({ project }: { project: Project }) {
+  const dispatch = useAppDispatch();
 
   // ? To reset volatile data whenever changing the project.
   const taskFocusIndicator = useRef("");
-  const input = useRef();
+  const input = useRef<HTMLInputElement>(null);
   useEffect(() => {
     taskFocusIndicator.current = "";
+    if (input.current === null) return;
     input.current.value = "";
   }, [project]);
 
   function handleAddTask() {
-    const newTask = { id: uid(8), value: input.current.value };
+    const newTask = new TaskItem(null, input.current!.value);
     const tasks = [newTask, ...(project.task ?? [])];
-    dispatch(projectUpdate({ ...project, task: tasks }));
 
-    input.current.value = "";
+    const rawProject = project.copyWith({ task: tasks });
+    dispatch(projectUpdate(rawProject));
+
+    input.current!.value = "";
   }
 
-  function handleRemoveTask(delTask) {
+  function handleRemoveTask(delTask: TaskItem) {
     const tasks = project.task.filter((task) => task.id !== delTask.id);
-    dispatch(projectUpdate({ ...project, task: tasks }));
+
+    project.task = tasks;
+    dispatch(projectUpdate(project));
   }
 
   const handleEdit = useCallback(
-    (task, value) => {
+    (task: TaskItem, value: string) => {
       const tasks = JSON.parse(JSON.stringify(project.task));
-      const editedTask = tasks.find((t) => t.id === task.id);
+      const editedTask = tasks.find((t: TaskItem) => t.id === task.id);
       if (editedTask) editedTask.value = value;
 
-      dispatch(projectUpdate({ ...project, task: tasks }));
+      project.task = tasks;
+      dispatch(projectUpdate(project));
       taskFocusIndicator.current = task.id;
     },
     [project, dispatch]

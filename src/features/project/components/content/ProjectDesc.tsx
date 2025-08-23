@@ -1,4 +1,6 @@
-export default function ProjectDesc({ project }) {
+import type { Project } from "../../model/project";
+
+export default function ProjectDesc({ project }: { project: Project }) {
   return (
     <div className="overflow-x-auto custom-scrollbar">
       <h1 className="project-title">{project.title}</h1>

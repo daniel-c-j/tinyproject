@@ -16,7 +16,7 @@
   }
 
   .base {
-    @apply flex flex-row max-w-screen max-h-screen overflow-y-clip font-[nunito-sans] dark:bg-[rgb(30, 30, 30)] dark:text-white;
+    @apply flex flex-row max-w-screen max-h-screen overflow-y-clip font-[nunito-sans] dark:bg-gray-900 dark:text-white;
   }
 
   .body {
@@ -34,7 +34,7 @@
   }
 
   .modal {
-    @apply fixed top-[45%] left-[50%] -translate-[50%] w-[75%] max-w-[75%] max-h-[60%] overflow-y-auto rounded-lg transition dark:bg-[rgb(50, 50, 50)] dark:text-white dark:shadow-lg dark:shadow-green-950/80 sm:w-[50%] sm:max-w-[50%] sm:max-h-[60%] md:w-[40%] md:max-w-[40%] md:max-h-[55%] lg:w-[30%] lg:max-w-[30%] lg:max-h-[50%];
+    @apply fixed top-[45%] left-[50%] -translate-[50%] w-[75%] max-w-[75%] max-h-[60%] overflow-y-auto rounded-lg transition dark:bg-gray-800 dark:text-white dark:shadow-lg dark:shadow-green-950/80 sm:w-[50%] sm:max-w-[50%] sm:max-h-[60%] md:w-[40%] md:max-w-[40%] md:max-h-[55%] lg:w-[30%] lg:max-w-[30%] lg:max-h-[50%];
   }
 
   .quick-menu {

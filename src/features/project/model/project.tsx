@@ -1,18 +1,13 @@
 import { uid } from "uid";
 
-
 class TaskItem {
   id: string;
   value: string;
-  constructor(
-    id = uid(8), value: string) {
-    this.id = id;
+
+  constructor(id: string | null = null, value: string) {
+    this.id = id === null ? uid(8) : id;
     this.value = value;
   }
-
-
-  toJSON() { return { ...this }; }
-
 }
 
 
@@ -21,18 +16,38 @@ class Project {
   title: string;
   desc: string | null;
   dateAdded: number;
-  dueDate: number | null;
+  dueDate: string | null;
   task: TaskItem[];
 
+  copyWith(
+    overrides: Partial<{
+      id: string;
+      title: string;
+      desc: string | null;
+      dateAdded: number;
+      dueDate: string | null;
+      task: TaskItem[];
+    }>
+  ): Project {
+    return new Project(
+      overrides.id !== undefined ? overrides.id : this.id,
+      overrides.title !== undefined ? overrides.title : this.title,
+      overrides.desc !== undefined ? overrides.desc : this.desc,
+      overrides.dateAdded !== undefined ? overrides.dateAdded : this.dateAdded,
+      overrides.dueDate !== undefined ? overrides.dueDate : this.dueDate,
+      overrides.task !== undefined ? overrides.task : this.task
+    );
+  }
+
   constructor(
-    id = uid(8),
+    id: string | null = null,
     title = "",
     desc: string | null = null,
     dateAdded = Date.now(),
-    dueDate: number | null = null,
+    dueDate: string | null = null,
     task: TaskItem[] = []
   ) {
-    this.id = id;
+    this.id = id === null ? uid(8) : id;
     this.title = title;
     this.desc = desc;
     this.dateAdded = dateAdded;
@@ -40,7 +55,7 @@ class Project {
     this.task = task;
   }
 
-  toJSON() { return { ...this }; }
+
 }
 
 export { Project, TaskItem };

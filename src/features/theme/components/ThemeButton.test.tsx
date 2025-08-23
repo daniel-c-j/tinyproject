@@ -20,7 +20,7 @@ it(`Renders initial: Moon icon`, async () => {
   const btn = screen.queryByTestId("light");
   expect(btn).not.toBeNull();
 
-  const logo = screen.getByRole("img");
+  const logo: HTMLImageElement = screen.getByRole("img");
   expect(logo.src).toContain("dark.png");
 });
 
@@ -34,12 +34,12 @@ it(`Renders initial: Moon icon; After tap: Sun icon`, async () => {
   const btn = screen.queryByTestId("light");
   expect(btn).not.toBeNull();
 
-  const logo = screen.getByRole("img");
+  const logo: HTMLImageElement = screen.getByRole("img");
   expect(logo.src).toContain("dark.png");
 
   const user = userEvent.setup();
-  await user.click(btn);
+  await user.click(btn!);
 
-  const afterLogo = screen.getByRole("img");
+  const afterLogo: HTMLImageElement = screen.getByRole("img");
   expect(afterLogo.src).toContain("light.png");
 });

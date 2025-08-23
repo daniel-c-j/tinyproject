@@ -3,15 +3,16 @@ import Modal from "../../../common/Modal";
 import ProjectDeletionConfirmation from "../ProjectDeletionConfirmation";
 import { useNavigate } from "react-router";
 import delay from "../../../../util/delay";
-import { useDispatch } from "react-redux";
 import { projectDelete } from "../../projectSlice";
+import type { Project } from "../../model/project";
+import { useAppDispatch } from "../../../../redux/hook";
 
-export default function ProjectHeader({ project }) {
+export default function ProjectHeader({ project }: { project: Project }) {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  function onDelete(project) {
+  function onDelete(project: Project) {
     navigate("/");
     // * Timeout to prevent concurrent render conflict
     setTimeout(() => dispatch(projectDelete(project)), 400);
@@ -26,7 +27,7 @@ export default function ProjectHeader({ project }) {
         />
       </Modal>
 
-      <div align="right">
+      <div className="text-right">
         <button
           type="button"
           className="btn-secondary-alert mx-1"
@@ -48,7 +49,7 @@ export default function ProjectHeader({ project }) {
 
 // TODO when utilizing server-client this should be a post req.
 // eslint-disable-next-line react-refresh/only-export-components
-export async function action({ request }) {
+export async function action({ request }: { request: Request }) {
   const formData = await request.formData();
   const project = Object.fromEntries(formData);
 

@@ -1,12 +1,12 @@
 import { cleanup } from "@testing-library/react";
 import { render, screen } from "@testing-library/react";
-import { createMemoryRouter, RouterProvider } from "react-router";
+import { createMemoryRouter, RouterProvider, type DataRouter } from "react-router";
 import { it } from "vitest";
 import InnerLayout from "./InnerLayout";
 import { expect } from "vitest";
 import { afterEach } from "vitest";
 
-const renderScreen = (router) => render(<RouterProvider router={router} />);
+const renderScreen = (router: DataRouter) => render(<RouterProvider router={router} />);
 
 afterEach(() => cleanup());
 

@@ -1,5 +1,4 @@
 import delay from "../../../util/delay";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Form,
   redirect,
@@ -7,36 +6,39 @@ import {
   useNavigation,
   useRouteLoaderData,
 } from "react-router";
-import { projectAdd, projectUpdate } from "../projectSlice";
-import getEmptyProject from "../model/project";
+import { projectAdd, projectItems, projectUpdate } from "../projectSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { Project } from "../model/project";
+import type React from "react";
 
 const labelStyle = "block uppercase font-semibold mt-4";
 const inputStyle = "input-field w-full";
 
 export default function ProjectForm() {
-  const items = useSelector((state) => state.project.items);
-  const dispatch = useDispatch();
+  const items = useAppSelector(projectItems);
+  const dispatch = useAppDispatch();
 
   const navigation = useNavigation();
   const isLoading = navigation.state === "submitting";
 
   const projectId = useRouteLoaderData("project-content");
   const dataFromCtx = items.find((proj) => proj.id == projectId);
-  const projectData = dataFromCtx || getEmptyProject();
+  const projectData = dataFromCtx || new Project();
 
   // Focus on data that is change-able in this scope.
-  const handleSubmitClientside = (event) => {
-    const formData = new FormData(event.target);
-    const projectDt = {
-      ...projectData,
-      title: formData.get("title"),
-      desc: formData.get("desc"),
-      dueDate: formData.get("date"),
-    };
+  const handleSubmitClientside = (event: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(event.currentTarget);
+    const newProj = projectData.copyWith(
+      {
+        title: formData.get("title")!.toString(),
+        desc: formData.get("desc")!.toString(),
+        dueDate: formData.get("date")!.toString()
+      }
+    );
 
     // If new
-    if (dataFromCtx == undefined) return dispatch(projectAdd(projectDt));
-    return dispatch(projectUpdate(projectDt));
+    if (dataFromCtx == undefined) return dispatch(projectAdd(newProj));
+    return dispatch(projectUpdate(newProj));
   };
 
   return (
@@ -45,7 +47,7 @@ export default function ProjectForm() {
       onSubmit={(e) => handleSubmitClientside(e)}
       className={isLoading ? "pointer-events-none" : "in-slide-up-fast"}
     >
-      <ProjectFormHeader />
+      <ProjectFormHeader isLoading={isLoading} />
 
       <div className={isLoading ? "opacity-60" : undefined}>
         {/* Hidden input so that id can be processed in action fn. */}
@@ -71,7 +73,7 @@ export default function ProjectForm() {
           name="desc"
           className={inputStyle + " resize-y min-h-[7.5vw]"}
           rows={3}
-          defaultValue={projectData.desc}
+          defaultValue={projectData.desc ?? ""}
           disabled={isLoading}
         />
 
@@ -82,7 +84,7 @@ export default function ProjectForm() {
           type="date"
           name="date"
           className={inputStyle}
-          defaultValue={projectData.dueDate}
+          defaultValue={projectData.dueDate ?? 0}
           disabled={isLoading}
         />
       </div>
@@ -90,14 +92,12 @@ export default function ProjectForm() {
   );
 }
 
-function ProjectFormHeader() {
-  const navigation = useNavigation();
+function ProjectFormHeader({ isLoading }: { isLoading: boolean }) {
+
   const navigate = useNavigate();
 
-  const isLoading = navigation.state === "submitting";
-
   return (
-    <div align="right">
+    <div className="text-right">
       <button
         type="button"
         onClick={() => navigate("..")}
@@ -121,7 +121,7 @@ function ProjectFormHeader() {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export async function action({ request }) {
+export async function action({ request }: { request: Request }) {
   const rawData = await request.formData();
   const data = Object.fromEntries(rawData);
 

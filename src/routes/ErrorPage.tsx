@@ -1,19 +1,20 @@
 import { useEffect } from "react";
 import { useNavigate, useRouteError } from "react-router";
 import getRandomKaomoji from "../util/kaomoji";
-import { useSelector } from "react-redux";
+import { currentTheme } from "../features/theme/themeSlice";
+import { useAppSelector } from "../redux/hook";
 
-function shouldRedirect(error: { redirect: boolean, status: number } | undefined): boolean {
+function shouldRedirect(error: { redirect?: boolean, status?: number }): boolean {
   if (error?.redirect !== undefined) return error?.redirect;
   if (error?.status == 404) return true;
   return false;
 }
 
 export default function ErrorPage({ forceRedirect }: { forceRedirect?: boolean }) {
-  const theme = useSelector((state) => state.theme.val);
+  const theme = useAppSelector(currentTheme);
 
-  const error: object | undefined = useRouteError();
-  const useRedirect: boolean = forceRedirect || shouldRedirect(error);
+  const error = useRouteError();
+  const useRedirect: boolean = forceRedirect || shouldRedirect(error!);
 
   return (
     <div
@@ -29,7 +30,7 @@ export default function ErrorPage({ forceRedirect }: { forceRedirect?: boolean }
         </h2>
 
         <h2 data-testid="err-title" className="text-2xl sm:text-3xl font-bold">
-          {"Error " + (error?.status || "")}
+          {"Error " + ((error as { status?: string }).status || "")}
         </h2>
 
         {useRedirect ? (

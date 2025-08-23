@@ -1,11 +1,12 @@
 import ProjectDesc from "./ProjectDesc";
 import ProjectTask from "./ProjectTask";
-import { useRouteLoaderData } from "react-router";
+import { useRouteLoaderData, type LoaderFunctionArgs } from "react-router";
 import ProjectHeader from "./ProjectHeader";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../../redux/hook";
+import { projectItems } from "../../projectSlice";
 
 export default function ProjectContent() {
-  const items = useSelector((state) => state.project.items);
+  const items = useAppSelector(projectItems);
 
   const projectId = useRouteLoaderData("project-content");
   const projectData = items.find((proj) => proj.id == projectId);
@@ -24,6 +25,6 @@ export default function ProjectContent() {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export async function loader({ params }) {
+export async function loader({ params }: LoaderFunctionArgs) {
   return params.projectId;
 }

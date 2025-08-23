@@ -1,9 +1,10 @@
 import logo from "/images/logo.png";
 import SideBarItem from "./SideBarItem";
 import { useLocation, useNavigate, useNavigation } from "react-router";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../redux/hook";
+import { projectItems } from "../../features/project/projectSlice";
 
-export default function SideBar({ className }) {
+export default function SideBar({ className }: { className: string }) {
   return (
     <div className={className} data-testid="sidebar">
       <div className="sm:pt-6 md:pt-8 lg:pt-10 pb-4 sm:pb-4.5 md:pb-5">
@@ -50,7 +51,7 @@ function SideBarAddButton() {
 }
 
 function SideBarItemsWrapper() {
-  const items = useSelector((state) => state.project.items);
+  const items = useAppSelector(projectItems);
 
   return (
     <div className="max-h-[77.5vh] sm:max-h-[75vh] md:max-h-[70vh] lg:max-h-[67.5vh] pb-8 overflow-y-auto no-scrollbar">

@@ -4,6 +4,8 @@ import logo from "../../../assets/images/no-projects.png";
 export default function ProjectUnselected() {
   const navigate = useNavigate();
 
+
+
   return (
     <div className="flex flex-col h-[75vh] items-center justify-center in-slide-down-realfast">
       <img

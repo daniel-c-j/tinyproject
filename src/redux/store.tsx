@@ -14,13 +14,23 @@ const rootReducer = combineReducers({
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(loggingMiddleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
   preloadedState: persistedState,
 });
 
+
+// TODO debouncing
 store.subscribe(() => {
   localStorage.setItem("reduxState", JSON.stringify(store.getState()));
 });
+
+
+export type AppStore = typeof store
+
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
 
 export default store;
